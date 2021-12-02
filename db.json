@@ -1,0 +1,37 @@
+{
+  "preguntas": [
+    {
+      "controlType": "dropdown",
+      "key": "brave",
+      "label": "Bravery rating",
+      "options": [
+        {
+          "key": "solid",
+          "value": "Solid"
+        },
+        {
+          "key": "great",
+          "value": "Great"
+        }
+      ],
+      "order": 1,
+      "value": ""
+    },
+    {
+      "controlType": "textbox",
+      "key": "firstName",
+      "label": "First name",
+      "value": "Bombasto",
+      "required": true,
+      "order": 2
+    },
+    {
+      "controlType": "textbox",
+      "key": "emailAddress",
+      "label": "Email",
+      "type": "email",
+      "order": 3,
+      "value": ""
+    }
+  ]
+}
