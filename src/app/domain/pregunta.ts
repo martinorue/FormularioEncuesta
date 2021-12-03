@@ -1,29 +1,29 @@
 export class Pregunta<T> {
   value: T | undefined;
-  key: string;
-  label: string;
+  id: string;
+  textoPregunta: string;
   required: boolean;
-  order: number;
-  controlType: string;
+  orden: number;
+  tipo: string;
   type: string;
   options: { key: string, value: string }[];
 
   constructor(options: {
     value?: T;
-    key?: string;
-    label?: string;
+    id?: string;
+    textoPregunta?: string;
     required?: boolean;
-    order?: number;
+    orden?: number;
     controlType?: string;
     type?: string;
     options?: { key: string, value: string }[];
   } = {}) {
     this.value = options.value;
-    this.key = options.key || '';
-    this.label = options.label || '';
+    this.id = options.id || '';
+    this.textoPregunta = options.textoPregunta || '';
     this.required = !!options.required;
-    this.order = options.order === undefined ? 1 : options.order;
-    this.controlType = options.controlType || '';
+    this.orden = options.orden === undefined ? 1 : options.orden;
+    this.tipo = options.controlType || '';
     this.type = options.type || '';
     this.options = options.options || [];
   }

@@ -1,7 +1,7 @@
 <div>
   <h2>Ejemplo Encuesta</h2>
   <!-- <div *ngFor="let pregunta of preguntas"> -->
-    <app-dynamic-form [preguntas]="preguntas$"></app-dynamic-form>
+    <app-dynamic-form [preguntas]="preguntas$ | async"></app-dynamic-form>
   <!-- </div> -->
 </div>
 <!-- <div *ngFor="let pregunta of preguntasBD">

@@ -10,5 +10,5 @@ import { Pregunta } from '../domain/pregunta';
 export class DynamicFormPreguntaComponent {
   @Input() pregunta!: Pregunta<string>;
   @Input() form!: FormGroup;
-  get isValid() { return this.form.controls[this.pregunta.key].valid; }
+  get isValid() { return this.form.controls[this.pregunta.id].valid; }
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { PreguntaService } from './services/pregunta.service';
 import { Pregunta } from './domain/pregunta';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PreguntaBD } from './domain/preguntaBD';
 import { PreguntaSeleccionUnica } from './domain/preguntaSeleccionUnica';
 import { PreguntaTextoLibre } from './domain/preguntaTextoLibre';
@@ -20,6 +19,7 @@ import { PreguntaTextoLibre } from './domain/preguntaTextoLibre';
 })
 export class AppComponent implements OnInit{
   preguntas$!: Observable<Pregunta<any>[]>;
+  title = 'ejemplo-dynamic-forms';
 
   constructor(private servicePregunta: PreguntaService) {
     

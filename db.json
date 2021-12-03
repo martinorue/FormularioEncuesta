@@ -1,36 +1,35 @@
 {
   "preguntas": [
     {
-      "controlType": "dropdown",
-      "key": "brave",
-      "label": "Bravery rating",
+      "tipo": "TextoLibre",
+      "id": 1,
+      "textoPregunta": "¿Cómo te atendimos?",
+      "value": "",
+      "required": true,
+      "orden": 1
+    },
+    {
+      "tipo": "TextoLibre",
+      "id": 2,
+      "textoPregunta": "¿Qué te parece nuestro espacio?",
+      "orden": 2,
+      "value": ""
+    },
+	{
+      "tipo": "SeleccionUnica",
+      "id": 3,
+      "textoPregunta": "¿Cómo te enteraste de nosotros?",
       "options": [
         {
           "key": "solid",
-          "value": "Solid"
+          "value": "Redes sociales"
         },
         {
           "key": "great",
-          "value": "Great"
+          "value": "Recomendación"
         }
       ],
-      "order": 1,
-      "value": ""
-    },
-    {
-      "controlType": "textbox",
-      "key": "firstName",
-      "label": "First name",
-      "value": "Bombasto",
-      "required": true,
-      "order": 2
-    },
-    {
-      "controlType": "textbox",
-      "key": "emailAddress",
-      "label": "Email",
-      "type": "email",
-      "order": 3,
+      "orden": 3,
       "value": ""
     }
   ]

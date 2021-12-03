@@ -5,6 +5,7 @@ import { PreguntaSeleccionUnica } from '../domain/preguntaSeleccionUnica';
 import { PreguntaTextoLibre } from '../domain/preguntaTextoLibre';
 import { Observable, of } from 'rxjs';
 import { PreguntaBD } from '../domain/preguntaBD';
+import {map} from 'rxjs/operators';
 
 
 @Injectable({
@@ -59,7 +60,7 @@ export class PreguntaService {
 
 
   getPreguntas(): Observable<Pregunta<string>[]> {
-    return this.httpClient.get<Pregunta<string>[]>('http://localhost:3000/preguntas');
+    return this.httpClient.get<Pregunta<string>[]>('http://localhost:3000/preguntas').pipe(map(pregunta => pregunta.sort((a, b) => a.orden - b.orden)));
   }
 
   
