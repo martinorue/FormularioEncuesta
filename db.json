@@ -4,33 +4,9 @@
       "tipo": "TextoLibre",
       "id": 1,
       "textoPregunta": "¿Cómo te atendimos?",
-      "value": "",
-      "required": true,
+      "requerido": true,
       "orden": 1
-    },
-    {
-      "tipo": "TextoLibre",
-      "id": 2,
-      "textoPregunta": "¿Qué te parece nuestro espacio?",
-      "orden": 2,
-      "value": ""
-    },
-	{
-      "tipo": "SeleccionUnica",
-      "id": 3,
-      "textoPregunta": "¿Cómo te enteraste de nosotros?",
-      "options": [
-        {
-          "key": "solid",
-          "value": "Redes sociales"
-        },
-        {
-          "key": "great",
-          "value": "Recomendación"
-        }
-      ],
-      "orden": 3,
-      "value": ""
-    }
+    }  
   ]
 }
+

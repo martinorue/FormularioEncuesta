@@ -1,8 +1,8 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
   
-      <div *ngFor="let pregunta of preguntas" class="form-row">
-        <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
+      <div *ngFor="let pregunta of preguntas;" class="form-row" style="padding-bottom: 15px;">
+        <app-pregunta [pregunta]="pregunta" [form]="form" ></app-pregunta>
       </div>
   
       <div class="form-row">
@@ -10,7 +10,7 @@
       </div>
     </form>
   
-    <div *ngIf="payLoad" class="form-row">
-      <strong>Saved the following values</strong><br>{{payLoad}}
-    </div>
+    <!-- <div *ngIf="respuestas" class="form-row">
+      <strong>Saved the following values</strong><br>{{respuestas}}
+    </div> -->
   </div>

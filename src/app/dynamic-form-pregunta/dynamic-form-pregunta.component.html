@@ -7,10 +7,16 @@
               [id]="pregunta.id" [type]="'text'">
   
       <select [id]="pregunta.id" *ngSwitchCase="'SeleccionUnica'" [formControlName]="pregunta.id">
-        <option *ngFor="let opt of pregunta.options" [value]="opt.key">{{opt.value}}</option>
+        <option *ngFor="let opt of pregunta.opciones" [value]="opt.value">{{opt.value}}</option>
       </select>
+    
+      <div *ngSwitchCase="'OpcionMultiple'">
+        <label *ngFor="let opcion of pregunta.opciones">
+          <input [type]="'checkbox'" [id]="opcion.opcionId" [formArrayName]="pregunta.id" [checked]="opcion.checked"> {{opcion.value}}
+        </label>
+      </div>
   
     </div>
-  
-    <div class="errorMessage" *ngIf="!isValid">{{pregunta.textoPregunta}} is required</div>
+    <!-- (change)="form.controls[pregunta.id].setValue($event?.target?.checked)" -->
+    <!-- <div class="errorMessage" *ngIf="!isValid">{{pregunta.textoPregunta}} is required</div> -->
   </div>

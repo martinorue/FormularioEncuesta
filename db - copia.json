@@ -1,0 +1,111 @@
+{
+  "preguntas": [
+    {
+      "tipo": "TextoLibre",
+      "id": 1,
+      "textoPregunta": "¿Cómo te atendimos?",
+      "requerido": true,
+      "orden": 1
+    },
+    {
+      "tipo": "TextoLibre",
+      "id": 2,
+      "textoPregunta": "¿Qué te parece nuestro espacio?",
+      "requerido": true,
+      "orden": 2
+    },
+    {
+      "tipo": "SeleccionUnica",
+      "id": 3,
+      "textoPregunta": "¿Cómo te enteraste de nosotros?",
+      "requerido": true,
+      "orden": 3,
+      "opciones": [
+        {
+          "id": "1",
+          "value": "Redes sociales"
+        },
+        {
+          "id": "2",
+          "value": "Recomendación"
+        }
+      ]
+    },
+    {
+      "tipo": "OpcionMultiple",
+      "id": 4,
+      "textoPregunta": "¿Qué días nos visitaste?",
+      "requerido": false,
+      "orden": 4,
+      "opciones": [
+        {
+          "opcionId": "1",
+          "value": "Lunes",
+          "checked": true
+        },
+        {
+          "opcionId": "2",
+          "value": "Martes",
+          "checked": false
+        },
+        {
+          "opcionId": "3",
+          "value": "Miércoles",
+          "checked": false
+        },
+        {
+          "opcionId": "4",
+          "value": "Jueves",
+          "checked": false
+        },
+        {
+          "opcionId": "5",
+          "value": "Viernes",
+          "checked": false
+        },
+        {
+          "opcionId": "6",
+          "value": "Sábado",
+          "checked": false
+        },
+        {
+          "opcionId": "7",
+          "value": "Domingo",
+          "checked": false
+        }
+      ]
+    },
+    {
+      "tipo": "TextoLibre",
+      "id": 5,
+      "textoPregunta": "¿Querés dejarnos algún comentario?",
+      "requerido": true,
+      "orden": 5
+    },
+    {
+      "tipo": "OpcionMultiple",
+      "id": 6,
+      "textoPregunta": "¿Cuál de los siguientes vinos probaste alguna vez?",
+      "requerido": false,
+      "orden": 6,
+      "opciones": [
+        {
+          "opcionId": "1",
+          "value": "Amadeus",
+          "checked": true
+        },
+        {
+          "opcionId": "2",
+          "value": "Bouza Albariño",
+          "checked": false
+        },
+        {
+          "opcionId": "3",
+          "value": "Zenit Maracuyá",
+          "checked": false
+        }
+      ]
+    }
+  ]
+}
+
