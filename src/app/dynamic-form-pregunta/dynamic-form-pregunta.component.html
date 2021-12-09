@@ -12,7 +12,7 @@
     
       <div *ngSwitchCase="'OpcionMultiple'">
         <label *ngFor="let opcion of pregunta.opciones">
-          <input [type]="'checkbox'" [id]="opcion.opcionId" [formArrayName]="pregunta.id" [checked]="opcion.checked"> {{opcion.value}}
+          <input [type]="'checkbox'" [id]="opcion.opcionId" [formArrayName]="pregunta.id" [checked]="opcion.checked" (click)="chequeado(opcion.opcionId)" > {{opcion.value}}
         </label>
       </div>
   

@@ -6,7 +6,7 @@ export class Pregunta {
   orden: number;
   tipo: string | undefined;
   
-  opciones: { opcionId: string, value: string, checked: boolean }[];
+  opciones: { opcionId: number, value: string, checked: boolean }[];
 
   constructor(opciones: {
     value?: string;
@@ -15,7 +15,7 @@ export class Pregunta {
     requerido?: boolean;
     orden?: number;
     controlType?: string;
-    opciones?: { opcionId: string, value: string, checked: boolean }[];
+    opciones?: { opcionId: number, value: string, checked: boolean }[];
   } = {}) {
     this.value = opciones.value || undefined;
     this.id = opciones.id || '';

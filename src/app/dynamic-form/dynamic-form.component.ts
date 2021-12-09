@@ -8,6 +8,9 @@ import { Respuesta } from '../domain/respuesta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 import { PreguntaService } from '../services/pregunta.service';
 import { RespuestService } from '../services/respuesta.service';
+import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
+import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
+import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -19,8 +22,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   @Input() preguntas: Pregunta[] | null = [];
   encuesta!: Encuesta;
   form!: FormGroup;
-  respuestas!: string;
   pregunta!: Pregunta;
+  respuestas!: string;
   feedback!: string;
   checked!: boolean;
   respuestaSubmit!: FeedbackEncuesta;
@@ -36,8 +39,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    //mensaje al cliente
-    //que solo traiga las opciones checked == true
     this.respuestas = JSON.stringify(this.form.getRawValue());
 
     this.feedback = this.form.value;
@@ -45,56 +46,46 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     let textoRespuesta = [];
     let valorRespuesta = '';
 
-    let primeraPregunta = this.preguntas ? [0] : Pregunta;
-    
-
     for (let c in ctrls) {
       valorRespuesta = this.form.get(c)?.value;
-      textoRespuesta.push(new Respuesta<string>(valorRespuesta, this.obtenerTipo(c)));
+      let preguntaId = c;
+      const d = new Date();
+      let fechaHoraContestada = d.toISOString();
+      let tipoPregunta = this.obtenerTipo(c);
+      
+      if(tipoPregunta == 'TextoLibre'){
+        textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
+      }else if(tipoPregunta == 'SeleccionUnica'){
+        textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
+      }
+      else if(tipoPregunta == 'OpcionMultiple'){
+        let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
+        textoRespuesta.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
+      }
     }
 
     let id = 2; //json server precisa un id
     const respuesta = new FeedbackEncuesta(id, this.encuesta.EncuestaID, textoRespuesta);
 
-
-    //const ctrls_key = this.form.controls.key;
-
-    /*for(let c in ctrls){
-      console.log(c);
-    }
-    1
-    2
-    */
-
-    // console.log(this.respuestas);
-    // {"1":"res1","2":"res2"}
-
-
-
-
-    // console.log(this.respuestas);
-    //this.form.valueChanges.subscribe(data => this.respuestas = data);
-    // if (this.preguntas !== null) {
-    //   for (let p of this.preguntas) {
-    //     if (p.tipo == 'OpcionMultiple') {
-    //       for (let o of p.opciones) {
-    //         if (o.checked == true) {
-    //           console.log(o.value);
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
-
     this.guardarRespuesta(respuesta);
+  }
 
-
+  obtenerOpcionesSeleccionadas(c: string): {OpcionID: number, OpcionTexto: string}[] {
+    let opcionesSeleccionadas = [];
+    let pos = +c;
+    if(this.preguntas !== null){
+      for(let opcion of this.preguntas[pos-1].opciones){
+        if(opcion.checked == true){
+          opcionesSeleccionadas.push({OpcionID: opcion.opcionId, OpcionTexto: opcion.value});
+        }
+      }
+    }
+    return opcionesSeleccionadas;
   }
 
   obtenerTipo(c: string): string | undefined {
     let pos = +c;
-    console.log(pos);
-    if(this.preguntas !== null){
+    if (this.preguntas !== null) {
       return this.preguntas[pos-1].tipo || undefined;
     }
     return '';
@@ -111,3 +102,4 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   }
 
 }
+

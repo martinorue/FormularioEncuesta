@@ -3,12 +3,12 @@ import { Respuesta } from "./respuesta";
 export class FeedbackEncuesta {
     public id: number;
     public EncuestaID: number;
-    // Denominacion: string;
-    // FechaInicio: string;
-    // FechaFin: string;
-    // CantidadEncuestados: number;
-    // Estado: string;
-    // Objetivo: string;
+    Denominacion!: string;
+    FechaInicio!: string;
+    FechaFin!: string;
+    CantidadEncuestados!: number;
+    Estado!: string;
+    Objetivo!: string;
     public Respuestas: Respuesta<string>[];
 
     constructor(

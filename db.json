@@ -16,6 +16,60 @@
           "textoPregunta": "¿Qué te parecieron nuestros platos?",
           "requerido": true,
           "orden": 2
+        },
+        {
+          "tipo": "SeleccionUnica",
+          "id": 3,
+          "textoPregunta": "¿Cómo te enteraste de nosotros?",
+          "requerido": true,
+          "orden": 3,
+          "opciones": [
+            {
+              "id": "1",
+              "value": "Redes sociales"
+            },
+            {
+              "id": "2",
+              "value": "Recomendación"
+            }
+          ]
+        },
+        {
+          "tipo": "OpcionMultiple",
+          "id": 4,
+          "textoPregunta": "¿Qué días nos visitaste?",
+          "requerido": false,
+          "orden": 4,
+          "opciones": [
+            {
+              "opcionId": "1",
+              "value": "Lunes"
+            },
+            {
+              "opcionId": "2",
+              "value": "Martes"
+            },
+            {
+              "opcionId": "3",
+              "value": "Miércoles"
+            },
+            {
+              "opcionId": "4",
+              "value": "Jueves"
+            },
+            {
+              "opcionId": "5",
+              "value": "Viernes"
+            },
+            {
+              "opcionId": "6",
+              "value": "Sábado"
+            },
+            {
+              "opcionId": "7",
+              "value": "Domingo"
+            }
+          ]
         }
       ]
     }
@@ -37,13 +91,44 @@
       "Respuestas": [
         {
           "RespuestaID": 0,
-          "TextoRespuesta": "res1",
-          "TipoPregunta": "TextoLibre"
+          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
+          "TipoPregunta": "TextoLibre",
+          "PreguntaID": 1,
+          "TextoRespuesta": "maravillosamente bien"
         },
         {
           "RespuestaID": 0,
-          "TextoRespuesta": "res2",
-          "TipoPregunta": "TextoLibre"
+          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
+          "TipoPregunta": "TextoLibre",
+          "PreguntaID": 2,
+          "TextoRespuesta": "muy buenos"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
+          "TipoPregunta": "SeleccionUnica",
+          "PreguntaID": 3,
+          "TextoRespuesta": "Redes sociales"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
+          "TipoPregunta": "OpcionMultiple",
+          "PreguntaID": 4,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": "1",
+              "OpcionTexto": "Lunes"
+            },
+            {
+              "OpcionID": "4",
+              "OpcionTexto": "Jueves"
+            },
+            {
+              "OpcionID": "7",
+              "OpcionTexto": "Domingo"
+            }
+          ]
         }
       ]
     }

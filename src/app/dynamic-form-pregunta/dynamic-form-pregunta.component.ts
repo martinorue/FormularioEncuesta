@@ -10,7 +10,15 @@ import { Pregunta } from '../domain/pregunta';
 export class DynamicFormPreguntaComponent {
   @Input() pregunta!: Pregunta;
   @Input() form!: FormGroup;
-  
+
+  chequeado(opcionId: number){
+    for(let opcion of this.pregunta.opciones){
+      if(opcion.opcionId == opcionId){
+        opcion.checked = !opcion.checked;
+        console.log(opcion.checked);
+      }
+    }
+  }
 
 
   get isValid() {
