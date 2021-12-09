@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Pregunta } from '../domain/pregunta';
-import { PreguntaSeleccionUnica } from '../domain/preguntaSeleccionUnica';
-import { PreguntaTextoLibre } from '../domain/preguntaTextoLibre';
 import { Observable, of } from 'rxjs';
 import { PreguntaBD } from '../domain/preguntaBD';
 import {map} from 'rxjs/operators';
+import { Encuesta } from '../domain/encuesta';
 
 
 @Injectable({
@@ -59,9 +58,15 @@ export class PreguntaService {
   // }
 
 
-  getPreguntas(): Observable<Pregunta<string>[]> {
-    return this.httpClient.get<Pregunta<string>[]>('http://localhost:3000/preguntas')
-    .pipe(map(pregunta => pregunta.sort((a, b) => a.orden - b.orden)));
+  getPreguntas(): Observable<Pregunta[]> {
+    return this.getEncuesta()
+    .pipe(encuesta => 
+      encuesta.pipe(map(encuesta => encuesta[0].Preguntas.sort((a, b) => a.orden - b.orden))
+    ));
+  }
+
+  getEncuesta(): Observable<Encuesta[]>{
+    return this.httpClient.get<Encuesta[]>('http://localhost:3000/encuestas');
   }
 
 }

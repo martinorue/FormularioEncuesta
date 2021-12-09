@@ -1,5 +1,5 @@
-import { Pregunta } from '../domain/pregunta';
+// import { Pregunta } from '../domain/pregunta';
 
-export class PreguntaTextoLibre extends Pregunta<string> {
-  override tipo = 'textbox';
-}
+// export class PreguntaTextoLibre extends Pregunta<string> {
+//   override tipo = 'textbox';
+// }

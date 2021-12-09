@@ -1,6 +1,5 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-  
       <div *ngFor="let pregunta of preguntas;" class="form-row" style="padding-bottom: 15px;">
         <app-pregunta [pregunta]="pregunta" [form]="form" ></app-pregunta>
       </div>

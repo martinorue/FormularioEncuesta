@@ -1,15 +1,15 @@
-export class Pregunta<T> {
-  value: T | undefined;
+export class Pregunta {
+  value: string | undefined;
   id: string;
   textoPregunta: string;
   requerido: boolean;
   orden: number;
-  tipo: string;
+  tipo: string | undefined;
   
   opciones: { opcionId: string, value: string, checked: boolean }[];
 
   constructor(opciones: {
-    value?: T;
+    value?: string;
     id?: string;
     textoPregunta?: string;
     requerido?: boolean;
@@ -17,7 +17,7 @@ export class Pregunta<T> {
     controlType?: string;
     opciones?: { opcionId: string, value: string, checked: boolean }[];
   } = {}) {
-    this.value = opciones.value;
+    this.value = opciones.value || undefined;
     this.id = opciones.id || '';
     this.textoPregunta = opciones.textoPregunta || '';
     this.requerido = !!opciones.requerido;
@@ -26,3 +26,4 @@ export class Pregunta<T> {
     this.opciones = opciones.opciones || [];
   }
 }
+

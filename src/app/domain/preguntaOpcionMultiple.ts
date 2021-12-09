@@ -1,13 +1,13 @@
-import { Pregunta } from './pregunta';
+// import { Pregunta } from './pregunta';
 
-export class PreguntaOpcionMultiple extends Pregunta<string> {
-  override tipo = 'checkbox';
-  type: string;
-  checked: boolean;
+// export class PreguntaOpcionMultiple extends Pregunta {
+//   override tipo = 'checkbox';
+//   type: string;
+//   checked: boolean;
 
-  constructor(options: any) {
-    super(options);
-    this.type = options.type || '';
-    this.checked = options.checked || false;
-  }
-}
+//   constructor(options: any) {
+//     super(options);
+//     this.type = options.type || '';
+//     this.checked = options.checked || false;
+//   }
+// }

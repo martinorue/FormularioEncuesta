@@ -1,12 +1,51 @@
 {
-  "preguntas": [
+  "encuestas": [
     {
-      "tipo": "TextoLibre",
+      "EncuestaID": 1,
+      "Preguntas": [
+        {
+          "tipo": "TextoLibre",
+          "id": 1,
+          "textoPregunta": "¿Cómo te atendimos?",
+          "requerido": true,
+          "orden": 1
+        },
+        {
+          "tipo": "TextoLibre",
+          "id": 2,
+          "textoPregunta": "¿Qué te parecieron nuestros platos?",
+          "requerido": true,
+          "orden": 2
+        }
+      ]
+    }
+  ],
+  "respuestas": [
+    {
       "id": 1,
-      "textoPregunta": "¿Cómo te atendimos?",
-      "requerido": true,
-      "orden": 1
-    }  
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "TextoRespuesta": "Sus vinos son muy buenos"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "TextoRespuesta": "res1",
+          "TipoPregunta": "TextoLibre"
+        },
+        {
+          "RespuestaID": 0,
+          "TextoRespuesta": "res2",
+          "TipoPregunta": "TextoLibre"
+        }
+      ]
+    }
   ]
 }
-

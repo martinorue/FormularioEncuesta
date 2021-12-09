@@ -8,7 +8,7 @@ import { Pregunta } from '../domain/pregunta';
   templateUrl: './dynamic-form-pregunta.component.html'
 })
 export class DynamicFormPreguntaComponent {
-  @Input() pregunta!: Pregunta<string>;
+  @Input() pregunta!: Pregunta;
   @Input() form!: FormGroup;
   
 
