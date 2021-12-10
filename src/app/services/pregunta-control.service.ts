@@ -13,13 +13,13 @@ export class PreguntaControlService {
     const group: any = {};
 
     preguntas?.forEach(pregunta => {
-      if (pregunta.tipo == 'TextoLibre' || pregunta.tipo == 'SeleccionUnica') {
-        group[pregunta.id] = pregunta.requerido ? new FormControl(pregunta.value || '', Validators.required)
+      if (pregunta.Tipo == 'TEXTOLIBRE' || pregunta.Tipo == 'OPCIONSIMPLE') {
+        group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl(pregunta.value || '', Validators.required)
           : new FormControl(pregunta.value || '');
           //group[pregunta.tipo] = new FormControl(pregunta.tipo);
       }
-      else if (pregunta.tipo == 'OpcionMultiple') {
-        group[pregunta.id] = this.formArray(pregunta);
+      else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
+        group[pregunta.PreguntaID] = this.formArray(pregunta);
       }
     });
 
@@ -32,8 +32,8 @@ export class PreguntaControlService {
 
   formArray(pregunta: Pregunta): FormArray {
     const arr = new FormArray([]);
-    for(let opcion of pregunta.opciones){
-      arr.push(new FormControl([opcion.opcionId, opcion.checked || false]));
+    for(let opcion of pregunta.Opciones){
+      arr.push(new FormControl([opcion.OpcionID, opcion.checked || false]));
     }
     return arr;
   }

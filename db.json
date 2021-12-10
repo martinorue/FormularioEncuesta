@@ -84,6 +84,53 @@
           "TextoRespuesta": "Sus vinos son muy buenos"
         }
       ]
+    },
+    {
+      "id": 2,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
+          "TipoPregunta": "TextoLibre",
+          "PreguntaID": 1,
+          "TextoRespuesta": "maravillosamente bien"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
+          "TipoPregunta": "TextoLibre",
+          "PreguntaID": 2,
+          "TextoRespuesta": "excelentes"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
+          "TipoPregunta": "SeleccionUnica",
+          "PreguntaID": 3,
+          "TextoRespuesta": "Redes sociales"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
+          "TipoPregunta": "OpcionMultiple",
+          "PreguntaID": 4,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 1,
+              "OpcionTexto": "Lunes"
+            },
+            {
+              "OpcionID": 3,
+              "OpcionTexto": "Miércoles"
+            },
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Viernes"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

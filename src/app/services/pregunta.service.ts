@@ -16,57 +16,17 @@ export class PreguntaService {
 
   constructor(public httpClient: HttpClient) {
   }
-
-  // getPreguntas() {
-  //   const result = this.getPreguntasBD();
-  //   const preguntas = result.pipe(map((pregunta: PreguntaBD[]) => {
-  //     let result: Pregunta<string>[] = [];
-  //     if (pregunta) {
-  //       pregunta.forEach((p) => {
-  //         if (p.Tipo == 'TextoLibre') {
-  //           result.push(new PreguntaTextoLibre({
-  //             key: p.TextoPregunta,
-  //             label: p.TextoPregunta,
-  //             value: '',
-  //             required: true,
-  //             order: p.Orden
-  //           }));
-  //         } else if (p.Tipo == 'SeleccionUnica') {
-  //           new PreguntaSeleccionUnica({
-  //             key: p.TextoPregunta,
-  //             label: p.TextoPregunta,
-  //             options: [
-  //               { key: 'solid', value: 'Solid' },
-  //               { key: 'great', value: 'Great' },
-  //               { key: 'good', value: 'Good' },
-  //               { key: 'unproven', value: 'Unproven' }
-  //             ],
-  //             order: p.Orden,
-  //             required: true
-  //           });
-  //         }
-  //       });
-  //     }
-  //     console.log(result);
-  //     return result.sort((a, b) => a.order - b.order);
-  //   }))
-  //   return preguntas;
-  // }
-
-  // getPreguntasBD(): Observable<PreguntaBD[]> {
-  //   return this.httpClient.get<PreguntaBD[]>(this.url + 'api/PreguntasTextoLibre');
-  // }
-
-
+  
   getPreguntas(): Observable<Pregunta[]> {
     return this.getEncuesta()
     .pipe(encuesta => 
-      encuesta.pipe(map(encuesta => encuesta[0].Preguntas.sort((a, b) => a.orden - b.orden))
+      encuesta.pipe(map(encuesta => encuesta[0].Preguntas.sort((a, b) => a.Orden - b.Orden))
     ));
   }
 
   getEncuesta(): Observable<Encuesta[]>{
-    return this.httpClient.get<Encuesta[]>('http://localhost:3000/encuestas');
+    return this.httpClient.get<Encuesta[]>('https://mr87187.azurewebsites.net/api/encuestas');
   }
-
+//http://localhost:3000/encuestas
+  //
 }

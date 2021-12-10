@@ -53,12 +53,12 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       let fechaHoraContestada = d.toISOString();
       let tipoPregunta = this.obtenerTipo(c);
       
-      if(tipoPregunta == 'TextoLibre'){
+      if(tipoPregunta == 'TEXTOLIBRE'){
         textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
-      }else if(tipoPregunta == 'SeleccionUnica'){
+      }else if(tipoPregunta == 'OPCIONSIMPLE'){
         textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
       }
-      else if(tipoPregunta == 'OpcionMultiple'){
+      else if(tipoPregunta == 'OPCIONMULTIPLE'){
         let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
         textoRespuesta.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
       }
@@ -74,9 +74,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     let opcionesSeleccionadas = [];
     let pos = +c;
     if(this.preguntas !== null){
-      for(let opcion of this.preguntas[pos-1].opciones){
+      for(let opcion of this.preguntas[pos-1].Opciones){
         if(opcion.checked == true){
-          opcionesSeleccionadas.push({OpcionID: opcion.opcionId, OpcionTexto: opcion.value});
+          opcionesSeleccionadas.push({OpcionID: opcion.OpcionID, OpcionTexto: opcion.OpcionTexto});
         }
       }
     }
@@ -86,7 +86,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   obtenerTipo(c: string): string | undefined {
     let pos = +c;
     if (this.preguntas !== null) {
-      return this.preguntas[pos-1].tipo || undefined;
+      return this.preguntas[pos-1].Tipo || undefined;
     }
     return '';
   }
