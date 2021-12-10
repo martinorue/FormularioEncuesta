@@ -42,31 +42,31 @@
           "orden": 4,
           "opciones": [
             {
-              "opcionId": "1",
+              "opcionId": 1,
               "value": "Lunes"
             },
             {
-              "opcionId": "2",
+              "opcionId": 2,
               "value": "Martes"
             },
             {
-              "opcionId": "3",
+              "opcionId": 3,
               "value": "Miércoles"
             },
             {
-              "opcionId": "4",
+              "opcionId": 4,
               "value": "Jueves"
             },
             {
-              "opcionId": "5",
+              "opcionId": 5,
               "value": "Viernes"
             },
             {
-              "opcionId": "6",
+              "opcionId": 6,
               "value": "Sábado"
             },
             {
-              "opcionId": "7",
+              "opcionId": 7,
               "value": "Domingo"
             }
           ]
@@ -82,53 +82,6 @@
         {
           "RespuestaID": 0,
           "TextoRespuesta": "Sus vinos son muy buenos"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "EncuestaID": 1,
-      "Respuestas": [
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
-          "TipoPregunta": "TextoLibre",
-          "PreguntaID": 1,
-          "TextoRespuesta": "maravillosamente bien"
-        },
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
-          "TipoPregunta": "TextoLibre",
-          "PreguntaID": 2,
-          "TextoRespuesta": "muy buenos"
-        },
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
-          "TipoPregunta": "SeleccionUnica",
-          "PreguntaID": 3,
-          "TextoRespuesta": "Redes sociales"
-        },
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-09T18:38:36.758Z",
-          "TipoPregunta": "OpcionMultiple",
-          "PreguntaID": 4,
-          "OpcionesSeleccionadas": [
-            {
-              "OpcionID": "1",
-              "OpcionTexto": "Lunes"
-            },
-            {
-              "OpcionID": "4",
-              "OpcionTexto": "Jueves"
-            },
-            {
-              "OpcionID": "7",
-              "OpcionTexto": "Domingo"
-            }
-          ]
         }
       ]
     }

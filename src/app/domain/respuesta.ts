@@ -9,7 +9,6 @@ export class Respuesta<T>{
         this.FechaHoraContestada = fechaHoraContestada;
         this.TipoPregunta = tipoPregunta || undefined;
         this.PreguntaID = preguntaID;
-        
     }
 }
 
