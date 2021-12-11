@@ -1,43 +1,22 @@
 {
-    "EncuestaID": 1,
+    "EncuestaID": 0,
     "Respuestas": [
-        {
-            "RespuestaID": 0,
-            "FechaHoraContestada": "2021-12-11T12:30:38.379Z",
-            "TipoPregunta": "TEXTOLIBRE",
-            "PreguntaID": 1,
-            "TextoRespuesta": "Perfectamente"
+      {
+        "RespuestaID": 0,
+        "FechaHoraContestada": "2021-12-11T16:34:36.505Z",
+        "Tipo": "string",
+        "PreguntaID": 0,
+        "TextoRespuesta": "string",
+        "OpcionSeleccionada": {
+          "OpcionID": 0,
+          "OpcionTexto": "string"
         },
-        {
-            "RespuestaID": 0,
-            "FechaHoraContestada": "2021-12-11T12:30:38.379Z",
-            "TipoPregunta": "OPCIONMULTIPLE",
-            "PreguntaID": 2,
-            "OpcionesSeleccionadas": [
-                {
-                    "OpcionID": 2,
-                    "OpcionTexto": "Croquetas de Papa"
-                }
-            ]
-        },
-        {
-            "RespuestaID": 0,
-            "FechaHoraContestada": "2021-12-11T12:30:38.380Z",
-            "TipoPregunta": "OPCIONMULTIPLE",
-            "PreguntaID": 3,
-            "OpcionesSeleccionadas": [
-                {
-                    "OpcionID": 6,
-                    "OpcionTexto": "Carmenere"
-                }
-            ]
-        },
-        {
-            "RespuestaID": 0,
-            "FechaHoraContestada": "2021-12-11T12:30:38.380Z",
-            "TipoPregunta": "OPCIONSIMPLE",
-            "PreguntaID": 4,
-            "TextoRespuesta": "Roberto"
-        }
+        "OpcionesSeleccionadas": [
+          {
+            "OpcionID": 0,
+            "OpcionTexto": "string"
+          }
+        ]
+      }
     ]
-}
+  }
