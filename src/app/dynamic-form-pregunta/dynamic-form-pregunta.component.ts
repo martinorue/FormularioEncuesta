@@ -19,7 +19,6 @@ export class DynamicFormPreguntaComponent {
     for(let opcion of this.pregunta.Opciones){
       if(opcion.OpcionID == OpcionId){
         opcion.checked = !opcion.checked;
-        console.log(opcion.checked);
       }
     }
   }
@@ -27,8 +26,6 @@ export class DynamicFormPreguntaComponent {
 
   get isValid() {
     let formControls = this.form.controls[this.pregunta.PreguntaID];
-    //console.log(formControls);
     return formControls.valid;
-    //return this.form.controls[this.pregunta.id].valid }
   }
 }

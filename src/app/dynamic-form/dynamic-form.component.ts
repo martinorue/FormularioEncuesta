@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Encuesta } from '../domain/encuesta';
 
@@ -27,15 +27,19 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   feedback!: string;
   checked!: boolean;
   respuestaSubmit!: FeedbackEncuesta;
+  msjUsuario: string = '';
+  respuestaErrMess!: string;
 
-  constructor(private pcs: PreguntaControlService, private ps: PreguntaService, private respuestaService: RespuestService) { }
+  @ViewChild('eform') encuestaFormDirective: any
+
+  constructor(private pcs: PreguntaControlService, private servicePregunta: PreguntaService, private respuestaService: RespuestService) { }
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
 
-    this.ps.getEncuesta().subscribe(encuesta => this.encuesta = encuesta[0]);
+    this.servicePregunta.getEncuesta().subscribe(encuesta => this.encuesta = encuesta[0]);
 
-    this.ps.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
+    this.servicePregunta.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
   }
 
   onSubmit() {
@@ -52,49 +56,91 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       const d = new Date();
       let fechaHoraContestada = d.toISOString();
       let tipoPregunta = this.obtenerTipo(c);
-      
-      if(tipoPregunta == 'TEXTOLIBRE'){
+
+      if (tipoPregunta == 'TEXTOLIBRE') {
         textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
-      }else if(tipoPregunta == 'OPCIONSIMPLE'){
-        textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
+      } else if (tipoPregunta == 'OPCIONSIMPLE') {
+        let opcionTexto = this.form.get(c)?.value;
+        let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
+        let opcionSeleccionada = {OpcionID: opcionId, OpcionTexto: opcionTexto};
+        textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
       }
-      else if(tipoPregunta == 'OPCIONMULTIPLE'){
+      else if (tipoPregunta == 'OPCIONMULTIPLE') {
         let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
         textoRespuesta.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
       }
     }
 
-    let id = 2; //json server precisa un id
-    const respuesta = new FeedbackEncuesta(id, this.encuesta.EncuestaID, textoRespuesta);
+    //let id = Math.random(); //json server precisa un id
+    const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuesta);
 
-    this.guardarRespuesta(respuesta);
+    const resJSON = JSON.stringify(respuesta);
+    console.log(resJSON);
+
+    this.guardarRespuesta(resJSON);
+
+    this.encuestaFormDirective.resetForm();
+
+    respuesta.Respuestas.filter(respuesta => {
+      if (respuesta.Tipo == 'OPCIONMULTIPLE') {
+        this.resetCheckboxes(respuesta.PreguntaID.toString());
+      }
+    });
+    this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
+    setTimeout(() => this.msjUsuario = '' , 3000);
+
   }
 
-  obtenerOpcionesSeleccionadas(c: string): {OpcionID: number, OpcionTexto: string}[] {
-    let opcionesSeleccionadas = [];
+  resetCheckboxes(preguntaId: string) {
+    let pos = +preguntaId;
+    if (this.preguntas !== null) {
+      for (let opcion of this.preguntas[pos - 1].Opciones) {
+        if (opcion.checked == true) {
+          opcion.checked = false;
+        }
+      }
+    }
+  }
+
+  obtenerOpcionSeleccionada(c: string, textoRespuesta: string): number {
+    let opcionSeleccionadaId: number = 0;
     let pos = +c;
     if(this.preguntas !== null){
       for(let opcion of this.preguntas[pos-1].Opciones){
-        if(opcion.checked == true){
-          opcionesSeleccionadas.push({OpcionID: opcion.OpcionID, OpcionTexto: opcion.OpcionTexto});
+        if(opcion.OpcionTexto == textoRespuesta){
+          opcionSeleccionadaId = opcion.OpcionID;
+        }
+      }
+    }
+    return opcionSeleccionadaId;
+  }
+
+  obtenerOpcionesSeleccionadas(c: string): { OpcionID: number, OpcionTexto: string }[] {
+    let opcionesSeleccionadas = [];
+    let pos = +c;
+    if (this.preguntas !== null) {
+      for (let opcion of this.preguntas[pos - 1].Opciones) {
+        if (opcion.checked == true) {
+          opcionesSeleccionadas.push({ OpcionID: opcion.OpcionID, OpcionTexto: opcion.OpcionTexto });
         }
       }
     }
     return opcionesSeleccionadas;
   }
-
+  
   obtenerTipo(c: string): string | undefined {
     let pos = +c;
     if (this.preguntas !== null) {
-      return this.preguntas[pos-1].Tipo || undefined;
+      return this.preguntas[pos - 1].Tipo || undefined;
     }
     return '';
   }
 
 
-  guardarRespuesta(respuesta: FeedbackEncuesta) {
+  guardarRespuesta(respuesta: string) {
     this.respuestaService.submitRespuesta(respuesta)
-      .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit);
+      .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit, 
+        errmess => this.respuestaErrMess = <any>errmess);
   }
 
   ngOnChanges(changes: SimpleChanges) {

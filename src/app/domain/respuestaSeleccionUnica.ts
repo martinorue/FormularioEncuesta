@@ -1,10 +1,10 @@
 import { Respuesta } from "./respuesta";
 
 export class RespuestaSeleccionUnica extends Respuesta<string>{
-    TextoRespuesta!: string;
-    
-    constructor(fechaHoraContestada: string, tipoPregunta: string | undefined, preguntaID: number, textoRespuesta: string){
+    OpcionSeleccionada: {OpcionID: number, OpcionTexto: string};
+
+    constructor(fechaHoraContestada: string, tipoPregunta: string | undefined, preguntaID: number, opcionesSeleccionadas: {OpcionID: number, OpcionTexto: string}){
         super(fechaHoraContestada, tipoPregunta, preguntaID);
-        this.TextoRespuesta = textoRespuesta;
+        this.OpcionSeleccionada = opcionesSeleccionadas;
     }
 }

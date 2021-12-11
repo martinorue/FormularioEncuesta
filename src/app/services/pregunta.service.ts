@@ -13,6 +13,8 @@ import { Encuesta } from '../domain/encuesta';
 export class PreguntaService {
 
   private url = 'http://localhost/BackendProyectoFinalAP/';
+  private url_local = 'http://localhost:3000/encuestas';
+  private url_azure = 'https://mr87187.azurewebsites.net/api/encuestas';
 
   constructor(public httpClient: HttpClient) {
   }
@@ -25,8 +27,7 @@ export class PreguntaService {
   }
 
   getEncuesta(): Observable<Encuesta[]>{
-    return this.httpClient.get<Encuesta[]>('https://mr87187.azurewebsites.net/api/encuestas');
+    return this.httpClient.get<Encuesta[]>(this.url_azure);
   }
-//http://localhost:3000/encuestas
-  //
+
 }

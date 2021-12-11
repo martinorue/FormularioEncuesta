@@ -2,72 +2,85 @@
   "encuestas": [
     {
       "EncuestaID": 1,
+      "Denominacion": "Encuesta de Satisfacción I",
+      "FechaInicio": "2021-12-05T00:00:00",
+      "FechaFin": "2021-12-24T00:00:00",
+      "CantidadEncuestados": 0,
+      "Estado": "BORRADOR",
+      "Objetivo": "Comprobar el estado de satisfacción de nuestros comensales.",
       "Preguntas": [
         {
-          "tipo": "TextoLibre",
-          "id": 1,
-          "textoPregunta": "¿Cómo te atendimos?",
-          "requerido": true,
-          "orden": 1
+          "PreguntaID": 1,
+          "TextoPregunta": "¿Cómo te atendimos hoy?",
+          "Tipo": "TEXTOLIBRE",
+          "Orden": 1,
+          "EncuestaID": 1,
+          "Requerida": true,
+          "Opciones": null
         },
         {
-          "tipo": "TextoLibre",
-          "id": 2,
-          "textoPregunta": "¿Qué te parecieron nuestros platos?",
-          "requerido": true,
-          "orden": 2
-        },
-        {
-          "tipo": "SeleccionUnica",
-          "id": 3,
-          "textoPregunta": "¿Cómo te enteraste de nosotros?",
-          "requerido": true,
-          "orden": 3,
-          "opciones": [
+          "PreguntaID": 2,
+          "TextoPregunta": "¿Qué platillos te gustaron más?",
+          "Tipo": "OPCIONMULTIPLE",
+          "Orden": 2,
+          "EncuestaID": 1,
+          "Requerida": true,
+          "Opciones": [
             {
-              "id": "1",
-              "value": "Redes sociales"
+              "OpcionID": 1,
+              "OpcionTexto": "Huevos Rotos"
             },
             {
-              "id": "2",
-              "value": "Recomendación"
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            },
+            {
+              "OpcionID": 3,
+              "OpcionTexto": "Tapas de Jamón Serrano"
             }
           ]
         },
         {
-          "tipo": "OpcionMultiple",
-          "id": 4,
-          "textoPregunta": "¿Qué días nos visitaste?",
-          "requerido": false,
-          "orden": 4,
-          "opciones": [
+          "PreguntaID": 3,
+          "TextoPregunta": "¿Qué cepas de vino te gustaron más?",
+          "Tipo": "OPCIONMULTIPLE",
+          "Orden": 3,
+          "EncuestaID": 1,
+          "Requerida": true,
+          "Opciones": [
             {
-              "opcionId": 1,
-              "value": "Lunes"
+              "OpcionID": 4,
+              "OpcionTexto": "Tannat"
             },
             {
-              "opcionId": 2,
-              "value": "Martes"
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
             },
             {
-              "opcionId": 3,
-              "value": "Miércoles"
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "PreguntaID": 4,
+          "TextoPregunta": "¿Qué mozo te atendió?",
+          "Tipo": "OPCIONSIMPLE",
+          "Orden": 4,
+          "EncuestaID": 1,
+          "Requerida": true,
+          "Opciones": [
+            {
+              "OpcionID": 7,
+              "OpcionTexto": "Roberto"
             },
             {
-              "opcionId": 4,
-              "value": "Jueves"
+              "OpcionID": 8,
+              "OpcionTexto": "Tatiana"
             },
             {
-              "opcionId": 5,
-              "value": "Viernes"
-            },
-            {
-              "opcionId": 6,
-              "value": "Sábado"
-            },
-            {
-              "opcionId": 7,
-              "value": "Domingo"
+              "OpcionID": 9,
+              "OpcionTexto": "Matías"
             }
           ]
         }
@@ -86,49 +99,530 @@
       ]
     },
     {
-      "id": 2,
+      "id": 0.4608629289434678,
       "EncuestaID": 1,
       "Respuestas": [
         {
           "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
-          "TipoPregunta": "TextoLibre",
+          "FechaHoraContestada": "2021-12-10T20:49:46.456Z",
+          "TipoPregunta": "TEXTOLIBRE",
           "PreguntaID": 1,
-          "TextoRespuesta": "maravillosamente bien"
+          "TextoRespuesta": "Perfectamente"
         },
         {
           "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
-          "TipoPregunta": "TextoLibre",
+          "FechaHoraContestada": "2021-12-10T20:49:46.456Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
           "PreguntaID": 2,
-          "TextoRespuesta": "excelentes"
-        },
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
-          "TipoPregunta": "SeleccionUnica",
-          "PreguntaID": 3,
-          "TextoRespuesta": "Redes sociales"
-        },
-        {
-          "RespuestaID": 0,
-          "FechaHoraContestada": "2021-12-10T01:18:23.531Z",
-          "TipoPregunta": "OpcionMultiple",
-          "PreguntaID": 4,
           "OpcionesSeleccionadas": [
             {
               "OpcionID": 1,
-              "OpcionTexto": "Lunes"
-            },
-            {
-              "OpcionID": 3,
-              "OpcionTexto": "Miércoles"
-            },
-            {
-              "OpcionID": 5,
-              "OpcionTexto": "Viernes"
+              "OpcionTexto": "Huevos Rotos"
             }
           ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:49:46.457Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:49:46.457Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.15305734818059946,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:50:14.120Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Lo más bien"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:50:14.120Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 3,
+              "OpcionTexto": "Tapas de Jamón Serrano"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:50:14.120Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T20:50:14.120Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Roberto"
+        }
+      ]
+    },
+    {
+      "id": 0.2934278966238668,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:00:18.100Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:00:18.101Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:00:18.101Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:00:18.102Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Matías"
+        }
+      ]
+    },
+    {
+      "id": 0.24472794069198445,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:01:48.665Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:01:48.665Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 1,
+              "OpcionTexto": "Huevos Rotos"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:01:48.666Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:01:48.666Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.471123394086304,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:02:43.433Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:02:43.433Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:02:43.434Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:02:43.434Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.6806894417821978,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:03:53.290Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:03:53.290Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:03:53.291Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:03:53.291Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.6166318580537726,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:04:30.203Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:04:30.204Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:04:30.205Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 6,
+              "OpcionTexto": "Carmenere"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:04:30.205Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.6674046218435199,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:06:52.239Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:06:52.240Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:06:52.240Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:06:52.240Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.1727460918000947,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:07:45.805Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:07:45.805Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 3,
+              "OpcionTexto": "Tapas de Jamón Serrano"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:07:45.806Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:07:45.806Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.09344919901356374,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:10:21.564Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:10:21.565Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:10:21.565Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:10:21.565Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.759643557146926,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:25:14.472Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:25:14.472Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 1,
+              "OpcionTexto": "Huevos Rotos"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:25:14.473Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 5,
+              "OpcionTexto": "Syrah"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T21:25:14.473Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Tatiana"
+        }
+      ]
+    },
+    {
+      "id": 0.9198136059936222,
+      "EncuestaID": 1,
+      "Respuestas": [
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T22:26:37.040Z",
+          "TipoPregunta": "TEXTOLIBRE",
+          "PreguntaID": 1,
+          "TextoRespuesta": "Perfectamente"
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T22:26:37.040Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 2,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 2,
+              "OpcionTexto": "Croquetas de Papa"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T22:26:37.041Z",
+          "TipoPregunta": "OPCIONMULTIPLE",
+          "PreguntaID": 3,
+          "OpcionesSeleccionadas": [
+            {
+              "OpcionID": 4,
+              "OpcionTexto": "Tannat"
+            }
+          ]
+        },
+        {
+          "RespuestaID": 0,
+          "FechaHoraContestada": "2021-12-10T22:26:37.041Z",
+          "TipoPregunta": "OPCIONSIMPLE",
+          "PreguntaID": 4,
+          "TextoRespuesta": "Roberto"
         }
       ]
     }

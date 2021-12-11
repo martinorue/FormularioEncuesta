@@ -1,7 +1,7 @@
 import { Respuesta } from "./respuesta";
 
 export class FeedbackEncuesta {
-    public id: number;
+    //public id: number;
     public EncuestaID: number;
     Denominacion!: string;
     FechaInicio!: string;
@@ -12,7 +12,7 @@ export class FeedbackEncuesta {
     public Respuestas: Respuesta<string>[];
 
     constructor(
-        id: number,
+        //id: number,
         EncuestaID: number,
         // Denominacion: string,
         // FechaInicio: string,
@@ -22,7 +22,7 @@ export class FeedbackEncuesta {
         // Objetivo: string,
         Respuestas: Respuesta<string>[]
     ) {
-        this.id = id;
+        //this.id = id;
         this.EncuestaID = EncuestaID;
         // this.Denominacion = Denominacion;
         // this.FechaInicio = FechaInicio;

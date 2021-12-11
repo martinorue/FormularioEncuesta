@@ -1,10 +1,9 @@
-<div>
-  <h2>Ejemplo Encuesta</h2>
-  <!-- <div *ngFor="let pregunta of preguntas"> -->
-    <app-dynamic-form [preguntas]="preguntas$ | async"></app-dynamic-form>
-  <!-- </div> -->
+<div [hidden]="encuesta">
+  <mat-spinner></mat-spinner>
+  <h4>Cargando encuesta...</h4>
 </div>
-<!-- <div *ngFor="let pregunta of preguntasBD">
-  <p>{{pregunta.TextoPregunta}}</p>
-</div> -->
+<div *ngIf="encuesta">
+  <h2>{{encuesta.Denominacion}}</h2>
+  <app-dynamic-form [preguntas]="preguntas$ | async"></app-dynamic-form>
+</div>
 <router-outlet></router-outlet>

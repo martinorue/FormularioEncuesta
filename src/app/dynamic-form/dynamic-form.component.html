@@ -1,15 +1,20 @@
-<div>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <div *ngFor="let pregunta of preguntas;" class="form-row" style="padding-bottom: 15px;">
-        <app-pregunta [pregunta]="pregunta" [form]="form" ></app-pregunta>
-      </div>
-  
-      <div class="form-row">
-        <button mat-button type="submit" [disabled]="!form.valid">Save</button>
-      </div>
-    </form>
-  
-    <!-- <div *ngIf="respuestas" class="form-row">
-      <strong>Saved the following values</strong><br>{{respuestas}}
-    </div> -->
-  </div>
+<div [hidden]="!preguntas">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
+    <div *ngFor="let pregunta of preguntas;" class="form-row">
+      <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
+    </div>
+
+    <div class="form-row" *ngIf="preguntas">
+      <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Save</button>
+      <span class="form-row" *ngIf="respuestaErrMess == ''">
+        <strong>{{msjUsuario}}</strong><br>
+      </span>
+      <span fxFlex *ngIf="respuestaErrMess">
+        <strong>Error: {{respuestaErrMess}}</strong>
+      </span>
+    </div>
+
+  </form>
+
+
+</div>

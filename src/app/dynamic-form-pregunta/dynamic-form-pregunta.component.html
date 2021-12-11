@@ -1,15 +1,17 @@
 <div [formGroup]="form">
-  <label [attr.for]="pregunta.PreguntaID">{{pregunta.TextoPregunta}}</label>
+  <div style="margin-bottom: 20px;">
+    <label [attr.for]="pregunta.PreguntaID" >{{pregunta.TextoPregunta}}</label>
+  </div>
 
   <div [ngSwitch]="pregunta.Tipo">
 
     <div *ngSwitchCase="'TEXTOLIBRE'">
       <mat-form-field>
-        <input matInput placeholder="escriba su respuesta..." [formControlName]="pregunta.PreguntaID"
-           required>
+        <textarea matInput placeholder="escriba su respuesta..." [formControlName]="pregunta.PreguntaID"
+           required></textarea>
       </mat-form-field>
     </div>
-
+    
     <div *ngSwitchCase="'OPCIONSIMPLE'">
       <mat-form-field>
           <mat-select [formControlName]="pregunta.PreguntaID">
@@ -27,6 +29,7 @@
         </label>
     </div>
 
+    <mat-divider style="margin: 20px 0;"></mat-divider>
 
   </div>
   <!-- <div class="errorMessage" *ngIf="!isValid">{{pregunta.textoPregunta}} is required</div> -->
