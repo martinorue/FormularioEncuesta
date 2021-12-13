@@ -24,9 +24,6 @@ export class PreguntaControlService {
     });
 
     this.fg = new FormGroup(group);
-    //console.log(this.fg);
-    //group.key = 'holis';
-    //console.log(group);
     return this.fg;
   }
 
