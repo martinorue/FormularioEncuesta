@@ -22,7 +22,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
+/*Responsive*/
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -43,7 +46,9 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSelectModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatCardModule,
     FormsModule,
+    FlexLayoutModule,
     MatProgressSpinnerModule,
     MatDividerModule
   ],

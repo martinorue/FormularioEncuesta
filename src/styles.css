@@ -1,4 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: rgba(236, 225, 225, 0.45);
+}
+
+.checkbox{
+    padding: 8px;
+}
+
+.full-width{
+    width: 75%;
+}
+
+.half-width{
+    width: 45%;
+}
+
+.form-size{
+    width: 75%;
+}
+
+.mat-card{
+    border-left: 5px solid crimson;
+}
+
+.spinner-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 20px);
+}
+
+.mat-spinner{
+    color: white;
+    padding: 12px;
+}
+/* 
+.denominacion-encuesta{
+    text-align:center;
+} */
+

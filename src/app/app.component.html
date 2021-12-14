@@ -1,9 +1,21 @@
-<div [hidden]="encuesta">
-  <mat-spinner></mat-spinner>
+<div *ngIf="!encuesta" class="spinner-wrapper">
+  <mat-spinner class="mat-spinner"></mat-spinner>
   <h4>Cargando encuesta...</h4>
 </div>
-<div *ngIf="encuesta">
-  <h2>{{encuesta.Denominacion}}</h2>
+
+<div
+  class="container"
+  fxLayout="column"
+  fxLayout.sm="column"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-around center"
+  fxLayoutGap="10px"
+  fxLayoutGap.xs="0"
+>
+
+
+
   <app-dynamic-form [preguntas]="preguntas$ | async"></app-dynamic-form>
-</div>
 <router-outlet></router-outlet>
+
+</div>

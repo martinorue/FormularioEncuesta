@@ -1,16 +1,23 @@
-<div [hidden]="!preguntas" fxFlex fxFlexOffset="20px" class="form-size">
-  <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
-    <div *ngFor="let pregunta of preguntas;" class="form-row">
-      <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
+<div [hidden]="!preguntas">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm" >
+    <mat-card *ngIf="encuesta" style="margin-bottom: 15px;">
+      <h1 class="denominacion-encuesta">{{encuesta.Denominacion}}</h1>
+      <p>Nos encantaría conocer tu opinión</p>
+    </mat-card>
+    <div *ngFor="let pregunta of preguntas;" class="form-row" style="margin-bottom: 15px;">
+      <mat-card class="mat-card">
+        <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
+      </mat-card>
     </div>
 
     <div class="form-row" *ngIf="preguntas">
       <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Save</button>
-      <span class="form-row">
-        <strong>{{msjUsuario}}</strong><br>
-      </span>
+      
       <span fxFlex *ngIf="respuestaErrMess">
         <strong>Error: {{respuestaErrMess}}</strong>
+      </span>
+      <span class="form-row" *ngIf="!respuestaErrMess">
+        <strong>{{msjUsuario}}</strong><br>
       </span>
     </div>
   </form>
