@@ -6,7 +6,7 @@
 
     <div class="form-row" *ngIf="preguntas">
       <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Save</button>
-      <span class="form-row" *ngIf="respuestaErrMess == ''">
+      <span class="form-row">
         <strong>{{msjUsuario}}</strong><br>
       </span>
       <span fxFlex *ngIf="respuestaErrMess">
@@ -14,7 +14,4 @@
       </span>
     </div>
 
-  </form>
-
-
-</div>
+    <form>
