@@ -1,4 +1,4 @@
-<div [hidden]="!preguntas">
+<div [hidden]="!preguntas" fxFlex fxFlexOffset="20px" class="form-size">
   <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
     <div *ngFor="let pregunta of preguntas;" class="form-row">
       <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
@@ -13,5 +13,5 @@
         <strong>Error: {{respuestaErrMess}}</strong>
       </span>
     </div>
-
-    <form>
+  </form>
+</div>

@@ -6,9 +6,9 @@
   <div [ngSwitch]="pregunta.Tipo">
 
     <div *ngSwitchCase="'TEXTOLIBRE'">
-      <mat-form-field>
+      <mat-form-field class="full-width">
         <textarea matInput placeholder="escriba su respuesta..." [formControlName]="pregunta.PreguntaID"
-           required></textarea>
+           required rows="6"></textarea>
       </mat-form-field>
     </div>
     

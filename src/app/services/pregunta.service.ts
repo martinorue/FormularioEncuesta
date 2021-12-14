@@ -27,7 +27,7 @@ export class PreguntaService {
   }
 
   getEncuesta(): Observable<Encuesta[]>{
-    return this.httpClient.get<Encuesta[]>(this.url_azure);
+    return this.httpClient.get<Encuesta[]>(this.url_local);
   }
 
 }
