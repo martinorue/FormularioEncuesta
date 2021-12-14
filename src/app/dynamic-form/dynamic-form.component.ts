@@ -1,13 +1,11 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Encuesta } from '../domain/encuesta';
-
 import { Pregunta } from '../domain/pregunta';
 import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
-import { Respuesta } from '../domain/respuesta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 import { PreguntaService } from '../services/pregunta.service';
-import { RespuestService } from '../services/respuesta.service';
+import { RespuestaService } from '../services/respuesta.service';
 import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
 import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
 import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
@@ -32,7 +30,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   @ViewChild('eform') encuestaFormDirective: any
 
-  constructor(private pcs: PreguntaControlService, private servicePregunta: PreguntaService, private respuestaService: RespuestService) { }
+  constructor(private pcs: PreguntaControlService, private servicePregunta: PreguntaService, private respuestaService: RespuestaService) { }
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
@@ -56,7 +54,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       const d = new Date();
       let fechaHoraContestada = d.toISOString();
       let tipoPregunta = this.obtenerTipo(c);
-
+      
       if (tipoPregunta == 'TEXTOLIBRE') {
         textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
       } else if (tipoPregunta == 'OPCIONSIMPLE') {

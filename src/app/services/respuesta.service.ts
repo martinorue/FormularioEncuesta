@@ -8,7 +8,7 @@ import { ProcessHttpmsgService } from './process-httpmsg.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RespuestService {
+export class RespuestaService {
 
   constructor(private http: HttpClient, private processHttpmsgService: ProcessHttpmsgService) { }
   private url_local = 'http://localhost:3000/respuestas';
