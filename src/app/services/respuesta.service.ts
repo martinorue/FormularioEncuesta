@@ -9,15 +9,17 @@ import { ProcessHttpmsgService } from './process-httpmsg.service';
   providedIn: 'root'
 })
 export class RespuestaService {
+  token = localStorage.getItem('access_token')!;
 
   constructor(private http: HttpClient, private processHttpmsgService: ProcessHttpmsgService) { }
   private url_local = 'http://localhost:3000/respuestas';
-  private url_azure = 'https://mr87187.azurewebsites.net/api/Contestar';
+  private url_azure = 'https://mr87187.azurewebsites.net/api/ContestarOpen';
 
   submitRespuesta(respuesta: string): Observable<FeedbackEncuesta> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.token}`
       })
     };
     return this.http.post<FeedbackEncuesta>(this.url_azure, respuesta, httpOptions)

@@ -2,7 +2,7 @@ export class Pregunta {
   value: string | undefined;
   PreguntaID!: number;
   TextoPregunta!: string;
-  Tipo!: string | undefined;
+  Tipo!: string;
   Orden!: number;
   Requerida!: boolean;
   EncuestaID!: number | undefined;

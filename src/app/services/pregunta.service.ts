@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Pregunta } from '../domain/pregunta';
 import { Observable, of } from 'rxjs';
-import { PreguntaBD } from '../domain/preguntaBD';
 import {map} from 'rxjs/operators';
 import { Encuesta } from '../domain/encuesta';
 
@@ -19,15 +18,15 @@ export class PreguntaService {
   constructor(public httpClient: HttpClient) {
   }
   
-  getPreguntas(): Observable<Pregunta[]> {
-    return this.getEncuesta()
+  getPreguntas(id:number): Observable<Pregunta[]> {
+    return this.getEncuesta(id)
     .pipe(encuesta => 
-      encuesta.pipe(map(encuesta => encuesta[0].Preguntas.sort((a, b) => a.Orden - b.Orden))
+      encuesta.pipe(map(encuesta => encuesta.Preguntas.sort((a, b) => a.Orden - b.Orden))
     ));
   }
 
-  getEncuesta(): Observable<Encuesta[]>{
-    return this.httpClient.get<Encuesta[]>(this.url_local);
+  getEncuesta(id:number): Observable<Encuesta>{
+    return this.httpClient.get<Encuesta>('https://mr87187.azurewebsites.net/api/EncuestasOpen?id=' + id);
   }
 
 }

@@ -18,7 +18,7 @@ import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
 export class DynamicFormComponent implements OnInit, OnChanges {
 
   @Input() preguntas: Pregunta[] | null = [];
-  encuesta!: Encuesta;
+  @Input() encuesta!: Encuesta | null;
   form!: FormGroup;
   pregunta!: Pregunta;
   respuestas!: string;
@@ -34,10 +34,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
+    
+    //this.servicePregunta.getEncuesta().subscribe(encuesta => this.encuesta = encuesta);
 
-    this.servicePregunta.getEncuesta().subscribe(encuesta => this.encuesta = encuesta[0]);
-
-    this.servicePregunta.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
+    //this.servicePregunta.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
   }
 
   onSubmit() {
@@ -54,13 +54,13 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       const d = new Date();
       let fechaHoraContestada = d.toISOString();
       let tipoPregunta = this.obtenerTipo(c);
-      
+
       if (tipoPregunta == 'TEXTOLIBRE') {
         textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
       } else if (tipoPregunta == 'OPCIONSIMPLE') {
         let opcionTexto = this.form.get(c)?.value;
         let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
-        let opcionSeleccionada = {OpcionID: opcionId, OpcionTexto: opcionTexto};
+        let opcionSeleccionada = { OpcionID: opcionId, OpcionTexto: opcionTexto };
         textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
       }
       else if (tipoPregunta == 'OPCIONMULTIPLE') {
@@ -70,22 +70,25 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
 
     //let id = Math.random(); //json server precisa un id
-    const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuesta);
+    if (this.encuesta != null) {
+      const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuesta);
+      const resJSON = JSON.stringify(respuesta);
+      console.log(resJSON);
 
-    const resJSON = JSON.stringify(respuesta);
-    console.log(resJSON);
+      this.guardarRespuesta(resJSON);
 
-    this.guardarRespuesta(resJSON);
+      this.encuestaFormDirective.resetForm();
 
-    this.encuestaFormDirective.resetForm();
+      respuesta.Respuestas.filter(respuesta => {
+        if (respuesta.Tipo == 'OPCIONMULTIPLE') {
+          this.resetCheckboxes(respuesta.PreguntaID.toString());
+        }
+      });
+    }
 
-    respuesta.Respuestas.filter(respuesta => {
-      if (respuesta.Tipo == 'OPCIONMULTIPLE') {
-        this.resetCheckboxes(respuesta.PreguntaID.toString());
-      }
-    });
+
     this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
-    setTimeout(() => this.msjUsuario = '' , 3000);
+    setTimeout(() => this.msjUsuario = '', 3000);
 
   }
 
@@ -103,9 +106,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   obtenerOpcionSeleccionada(c: string, textoRespuesta: string): number {
     let opcionSeleccionadaId: number = 0;
     let pos = +c;
-    if(this.preguntas !== null){
-      for(let opcion of this.preguntas[pos-1].Opciones){
-        if(opcion.OpcionTexto == textoRespuesta){
+    if (this.preguntas !== null) {
+      for (let opcion of this.preguntas[pos - 1].Opciones) {
+        if (opcion.OpcionTexto == textoRespuesta) {
           opcionSeleccionadaId = opcion.OpcionID;
         }
       }
@@ -125,19 +128,23 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
     return opcionesSeleccionadas;
   }
-  
-  obtenerTipo(c: string): string | undefined {
+
+  obtenerTipo(c: string): string {
     let pos = +c;
-    if (this.preguntas !== null) {
-      return this.preguntas[pos - 1].Tipo || undefined;
+    console.log(pos);
+    const pregunta = this.preguntas?.filter(p => p.PreguntaID = +c);
+    if (pregunta != null) {
+      console.log(pregunta[0].Tipo);
+      return pregunta[0].Tipo;
+    } else {
+      return ''
     }
-    return '';
   }
 
 
   guardarRespuesta(respuesta: string) {
     this.respuestaService.submitRespuesta(respuesta)
-      .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit, 
+      .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit,
         errmess => this.respuestaErrMess = <any>errmess);
   }
 
