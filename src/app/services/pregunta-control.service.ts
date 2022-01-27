@@ -15,8 +15,9 @@ export class PreguntaControlService {
 
     preguntas?.forEach(pregunta => {
       if (pregunta.Tipo == 'TEXTOLIBRE' || pregunta.Tipo == 'OPCIONSIMPLE') {
-        group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl(pregunta.value || '', Validators.required)
-          : new FormControl(pregunta.value || '');
+        
+        group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl( '', Validators.required)
+          : new FormControl('');
           //group[pregunta.tipo] = new FormControl(pregunta.tipo);
       }
       else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
@@ -26,7 +27,7 @@ export class PreguntaControlService {
 
     group[encuestado?.Nombre!] = new FormControl('');
     group[encuestado?.Correo!] = new FormControl('', [Validators.email]);
-    group[encuestado?.Celular!] = new FormControl('');
+    group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
     this.fg = new FormGroup(group);
     

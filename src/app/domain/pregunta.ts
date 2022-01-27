@@ -1,12 +1,12 @@
 export class Pregunta {
-  value: string | undefined;
   PreguntaID!: number;
   TextoPregunta!: string;
   Tipo!: string;
   Orden!: number;
-  Requerida!: boolean;
   EncuestaID!: number | undefined;
+  Requerida!: boolean;
   Opciones!: { OpcionID: number, OpcionTexto: string, checked: boolean }[];
+  
   
 
   // constructor(opciones: {

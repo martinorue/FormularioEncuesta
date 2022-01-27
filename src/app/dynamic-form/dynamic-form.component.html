@@ -1,44 +1,56 @@
+
 <div *ngIf="preguntas && encuesta">
   <div *ngIf="encuesta.Estado == 'PUBLICADA'">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
-      <mat-card *ngIf="encuesta" style="margin-bottom: 15px;">
+      <mat-card *ngIf="encuesta">
         <h1 class="denominacion-encuesta">{{encuesta.Denominacion}}</h1>
         <p>Nos encantaría conocer tu opinión.</p>
       </mat-card>
-      <div *ngFor="let pregunta of preguntas;" class="form-row" style="margin-bottom: 15px;">
+      <div *ngFor="let pregunta of preguntas;" class="form-row">
         <mat-card class="mat-card">
           <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
         </mat-card>
       </div>
 
-      <!-- nombre -->
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombreEncuestado">
-      </mat-form-field>
+      <mat-card>
+        <mat-card-title>Datos personales (opcional)</mat-card-title>
+        <br>
+        <mat-card-subtitle>Dejanos tus datos para enterarte de todas las novedades.</mat-card-subtitle>
+        <!-- nombre -->
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombreEncuestado">
+        </mat-form-field>
 
-      <!--email  -->
-      <p>
+        <!--email  -->
+        <p>
 
-        <mat-form-field class="half-width" appearance="fill">
-          <mat-label>Email</mat-label>
-          <input type="email" matInput formControlName="emailEncuestado" [errorStateMatcher]="matcher"
-            placeholder="Ej. ejemplo@ejemplo.com">
-          <mat-error *ngIf="form.controls['emailEncuestado'].hasError('email')">
-            Por favor, ingrese una dirección de correo válida
+          <mat-form-field class="full-width" appearance="fill" color="primary">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="emailEncuestado" [errorStateMatcher]="matcher"
+              placeholder="Ej. ejemplo@ejemplo.com">
+            <mat-error *ngIf="form.controls['emailEncuestado'].hasError('email')">
+              Por favor, ingrese una dirección de correo válida
+            </mat-error>
+          </mat-form-field>
+
+        </p>
+
+        <!-- celular -->
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Celular</mat-label>
+          <span matPrefix>+598 &nbsp;</span>
+          <input type="tel" matInput placeholder="099-123-456" formControlName="celEncuestado" >
+          <mat-icon matSuffix>mode_edit</mat-icon>
+          <mat-error *ngIf="form.controls['celEncuestado'].hasError('pattern')">
+            Por favor, ingrese un número de celular válido (solo números, y entre 3 y 45 dígitos)
           </mat-error>
         </mat-form-field>
 
-      </p>
-
-      <!-- celular -->
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Celular</mat-label>
-        <span matPrefix>+598 &nbsp;</span>
-        <input type="tel" matInput placeholder="099-123-456" formControlName="celEncuestado">
-        <mat-icon matSuffix>mode_edit</mat-icon>
-      </mat-form-field>
-
+        
+      </mat-card>
+      
+      <!-- botón submit -->
       <div class="form-row" *ngIf="preguntas">
         <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Save</button>
         <span fxFlex *ngIf="respuestaErrMess">

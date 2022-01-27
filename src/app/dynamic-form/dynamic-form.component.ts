@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Encuesta } from '../domain/encuesta';
 import { Pregunta } from '../domain/pregunta';
 import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
@@ -22,7 +22,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   @Input() preguntas: Pregunta[] | null = [];
   @Input() encuesta!: Encuesta | null;
   form!: FormGroup;
-  pregunta!: Pregunta;
   respuestas!: string;
   feedback!: string;
   checked!: boolean;

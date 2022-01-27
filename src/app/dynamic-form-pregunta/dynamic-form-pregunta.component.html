@@ -2,10 +2,10 @@
 
 <div [formGroup]="form">
   <div [ngSwitch]="pregunta.Tipo">
-    <div style="margin-bottom: 20px;">
+    <div>
       <label [attr.for]="pregunta.PreguntaID"><h2>{{pregunta.TextoPregunta}}</h2></label>
     </div>
-    <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="accent">
+    <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="primary">
       <textarea matInput placeholder="Escriba su respuesta..." [formControlName]="pregunta.PreguntaID" required
         rows="4">
         </textarea>
@@ -29,5 +29,4 @@
       </label>
     </div>
   </div>
-  <!-- <div class="errorMessage" *ngIf="!isValid">{{pregunta.textoPregunta}} is required</div> -->
 </div>

@@ -1,5 +1,5 @@
 <!-- <div *ngIf="!encuesta" class="spinner-wrapper">
-  <mat-spinner class="mat-spinner"></mat-spinner>
+  <mat-spinner color="warn" class="mat-spinner"></mat-spinner>
   <h4>Cargando encuesta...</h4>
 </div> -->
 
@@ -12,8 +12,6 @@
   fxLayoutGap="10px"
   fxLayoutGap.xs="0"
 >
-
-
 
   <app-dynamic-form [preguntas]="preguntas$ | async" [encuesta]="encuesta$ | async"></app-dynamic-form>
 <router-outlet></router-outlet>
