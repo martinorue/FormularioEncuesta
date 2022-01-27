@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { IEncuestado } from '../domain/encuestado';
 
 import { Pregunta } from '../domain/pregunta';
 
@@ -9,7 +10,7 @@ export class PreguntaControlService {
 
   constructor() { }
 
-  toFormGroup(preguntas?: Pregunta[]) {
+  toFormGroup(encuestado:IEncuestado, preguntas?: Pregunta[]) {
     const group: any = {};
 
     preguntas?.forEach(pregunta => {
@@ -23,7 +24,12 @@ export class PreguntaControlService {
       }
     });
 
+    group[encuestado?.Nombre!] = new FormControl('');
+    group[encuestado?.Correo!] = new FormControl('', [Validators.email]);
+    group[encuestado?.Celular!] = new FormControl('');
+
     this.fg = new FormGroup(group);
+    
     return this.fg;
   }
 

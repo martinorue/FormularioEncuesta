@@ -10,6 +10,7 @@ import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
 import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
 import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { IEncuestado } from '../domain/encuestado';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -29,68 +30,82 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   msjUsuario: string = '';
   respuestaErrMess!: string;
 
+  encuestado: IEncuestado = {
+    PersonaId: 0,
+    Nombre: 'nombreEncuestado',
+    Correo: 'emailEncuestado',
+    Celular: 'celEncuestado'
+  };
+  // datosEncuestadoForm: FormGroup | undefined;
+
   @ViewChild('eform') encuestaFormDirective: any
 
-  constructor(private pcs: PreguntaControlService, private servicePregunta: PreguntaService, private respuestaService: RespuestaService) { }
+  constructor(
+    private pcs: PreguntaControlService,
+    private servicePregunta: PreguntaService,
+    private respuestaService: RespuestaService) {
+    // this.loadBuilder();
+  }
 
   ngOnInit() {
-    this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
-
-    //this.servicePregunta.getEncuesta().subscribe(encuesta => this.encuesta = encuesta);
-
-    //this.servicePregunta.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
+    this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
   }
 
   onSubmit() {
     this.respuestas = JSON.stringify(this.form.getRawValue());
-
     this.feedback = this.form.value;
     const ctrls = this.form.controls;
-    let textoRespuesta = [];
+    let textoRespuestas = [];
     let valorRespuesta = '';
 
+    const encuestado: IEncuestado = {
+      PersonaId: 0,
+      Nombre: this.form.value.nombreEncuestado,
+      Correo: this.form.value.emailEncuestado,
+      Celular: this.form.value.celEncuestado
+    }
+    console.log(this.form.value);
+
     for (let c in ctrls) {
-      valorRespuesta = this.form.get(c)?.value;
-      let preguntaId = c;
-      const d = new Date();
-      let fechaHoraContestada = d.toISOString();
-      let tipoPregunta = this.obtenerTipo(c);
+      if (c != 'nombreEncuestado' && c != 'emailEncuestado' && c != 'celEncuestado') {
+        valorRespuesta = this.form.get(c)?.value;
+        let preguntaId = c;
+        const d = new Date();
+        let fechaHoraContestada = d.toISOString();
+        let tipoPregunta = this.obtenerTipo(c);
 
-      if (tipoPregunta == 'TEXTOLIBRE') {
-        textoRespuesta.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
-      } else if (tipoPregunta == 'OPCIONSIMPLE') {
-        let opcionTexto = this.form.get(c)?.value;
-        let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
-        let opcionSeleccionada = { OpcionID: opcionId, OpcionTexto: opcionTexto };
-        textoRespuesta.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
-      }
-      else if (tipoPregunta == 'OPCIONMULTIPLE') {
-        let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
-        textoRespuesta.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
-      }
-    }
-
-    //let id = Math.random(); //json server precisa un id
-    if (this.encuesta != null) {
-      const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuesta);
-      const resJSON = JSON.stringify(respuesta);
-      console.log(resJSON);
-
-      this.guardarRespuesta(resJSON);
-
-      this.encuestaFormDirective.resetForm();
-
-      respuesta.Respuestas.filter(respuesta => {
-        if (respuesta.Tipo == 'OPCIONMULTIPLE') {
-          this.resetCheckboxes(respuesta.PreguntaID.toString());
+        if (tipoPregunta == 'TEXTOLIBRE') {
+          textoRespuestas.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
+        } else if (tipoPregunta == 'OPCIONSIMPLE') {
+          let opcionTexto = this.form.get(c)?.value;
+          let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
+          let opcionSeleccionada = { OpcionID: opcionId, OpcionTexto: opcionTexto };
+          textoRespuestas.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
         }
-      });
+        else if (tipoPregunta == 'OPCIONMULTIPLE') {
+          let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
+          textoRespuestas.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
+        }
+      }
+
+      if (this.encuesta != null) {
+        const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
+        const resJSON = JSON.stringify(respuesta);
+        console.log(resJSON);
+
+        this.guardarRespuesta(resJSON);
+
+        this.encuestaFormDirective.resetForm();
+
+        respuesta.Respuestas.filter(respuesta => {
+          if (respuesta.Tipo == 'OPCIONMULTIPLE') {
+            this.resetCheckboxes(respuesta.PreguntaID.toString());
+          }
+        });
+      }
+      this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
+      setTimeout(() => this.msjUsuario = '', 3000);
     }
-
-
-    this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
-    setTimeout(() => this.msjUsuario = '', 3000);
-
   }
 
   resetCheckboxes(preguntaId: string) {
@@ -150,19 +165,13 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
+    this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
   }
 
-  // isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-  //   const isSubmitted = form && form.submitted;
-  //   return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  // }
-
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
   matcher = new ErrorStateMatcher();
+
 }
 
 
-   
+
 
