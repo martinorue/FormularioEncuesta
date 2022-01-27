@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Encuesta } from '../domain/encuesta';
 import { Pregunta } from '../domain/pregunta';
 import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
@@ -9,11 +9,12 @@ import { RespuestaService } from '../services/respuesta.service';
 import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
 import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
 import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
-  providers: [PreguntaControlService]
+  providers: [PreguntaControlService, ErrorStateMatcher]
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
 
@@ -34,7 +35,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
-    
+
     //this.servicePregunta.getEncuesta().subscribe(encuesta => this.encuesta = encuesta);
 
     //this.servicePregunta.getPreguntas().subscribe(preguntas => this.preguntas = preguntas);
@@ -152,5 +153,16 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     this.form = this.pcs.toFormGroup(this.preguntas as Pregunta[]);
   }
 
+  // isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  //   const isSubmitted = form && form.submitted;
+  //   return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  // }
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  matcher = new ErrorStateMatcher();
 }
+
+
+   
 
