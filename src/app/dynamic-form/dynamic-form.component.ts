@@ -63,7 +63,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       Correo: this.form.value.emailEncuestado,
       Celular: this.form.value.celEncuestado
     }
-    console.log(this.form.value);
+    // console.log(this.form.value);
 
     for (let c in ctrls) {
       if (c != 'nombreEncuestado' && c != 'emailEncuestado' && c != 'celEncuestado') {
@@ -82,36 +82,41 @@ export class DynamicFormComponent implements OnInit, OnChanges {
           textoRespuestas.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
         }
         else if (tipoPregunta == 'OPCIONMULTIPLE') {
+          console.log(c);
+          
           let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
           textoRespuestas.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
+          console.log(opcionesSeleccionadas);
         }
       }
 
-      if (this.encuesta != null) {
-        const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
-        const resJSON = JSON.stringify(respuesta);
-        console.log(resJSON);
-
-        this.guardarRespuesta(resJSON);
-
-        this.encuestaFormDirective.resetForm();
-
-        respuesta.Respuestas.filter(respuesta => {
-          if (respuesta.Tipo == 'OPCIONMULTIPLE') {
-            this.resetCheckboxes(respuesta.PreguntaID.toString());
-          }
-        });
-      }
-      this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
-      setTimeout(() => this.msjUsuario = '', 3000);
     }
+
+    if (this.encuesta != null) {
+      const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
+      const resJSON = JSON.stringify(respuesta);
+      console.log(resJSON);
+
+      this.guardarRespuesta(resJSON);
+
+      this.encuestaFormDirective.resetForm();
+
+      respuesta.Respuestas.filter(respuesta => {
+        if (respuesta.Tipo == 'OPCIONMULTIPLE') {
+          this.resetCheckboxes(respuesta.PreguntaID.toString());//!!
+        }
+      });
+    }
+    this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
+    setTimeout(() => this.msjUsuario = '', 3000);
   }
 
   resetCheckboxes(preguntaId: string) {
     let pos = +preguntaId;
-    if (this.preguntas !== null) {
-      for (let opcion of this.preguntas[pos - 1].Opciones) {
-        if (opcion.checked == true) {
+    const pregunta = this.preguntas?.filter(p => p.PreguntaID == pos);
+    if (pregunta != null) {
+      for (let opcion of pregunta[0].Opciones) {
+        if (opcion.checked) {
           opcion.checked = false;
         }
       }
@@ -133,24 +138,29 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   obtenerOpcionesSeleccionadas(c: string): { OpcionID: number, OpcionTexto: string }[] {
     let opcionesSeleccionadas = [];
-    let pos = +c;
-    if (this.preguntas !== null) {
-      for (let opcion of this.preguntas[pos - 1].Opciones) {
-        if (opcion.checked == true) {
+    // console.log(c);
+    
+    const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
+    // console.log(pregunta);
+    
+    if (pregunta != null) {
+      for (let opcion of pregunta.Opciones) {
+        if (opcion.checked) {
           opcionesSeleccionadas.push({ OpcionID: opcion.OpcionID, OpcionTexto: opcion.OpcionTexto });
         }
       }
     }
+    console.log(opcionesSeleccionadas)
     return opcionesSeleccionadas;
   }
 
   obtenerTipo(c: string): string {
     let pos = +c;
-    console.log(pos);
-    const pregunta = this.preguntas?.filter(p => p.PreguntaID = +c);
+    // console.log(pos);
+    const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
     if (pregunta != null) {
-      console.log(pregunta[0].Tipo);
-      return pregunta[0].Tipo;
+      // console.log(pregunta.Tipo);
+      return pregunta.Tipo;
     } else {
       return ''
     }

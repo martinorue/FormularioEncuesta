@@ -4,7 +4,7 @@ export class Respuesta<T>{
     FechaHoraContestada: string;
     Tipo: string | undefined;
     PreguntaID: number;
-    
+    //TextoRespuesta: string;
     constructor(fechaHoraContestada: string, tipoPregunta: string | undefined, preguntaID: number){
         this.FechaHoraContestada = fechaHoraContestada;
         this.Tipo = tipoPregunta || undefined;
