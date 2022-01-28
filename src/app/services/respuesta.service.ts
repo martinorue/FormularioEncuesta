@@ -9,7 +9,6 @@ import { ProcessHttpmsgService } from './process-httpmsg.service';
   providedIn: 'root'
 })
 export class RespuestaService {
-  token = localStorage.getItem('access_token')!;
 
   constructor(private http: HttpClient, private processHttpmsgService: ProcessHttpmsgService) { }
   private url_local = 'http://localhost:3000/respuestas';
@@ -19,7 +18,6 @@ export class RespuestaService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`
       })
     };
     return this.http.post<FeedbackEncuesta>(this.url_azure, respuesta, httpOptions)

@@ -144,7 +144,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         }
       }
     }
-    console.log(opcionesSeleccionadas)
     return opcionesSeleccionadas;
   }
 
