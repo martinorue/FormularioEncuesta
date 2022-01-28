@@ -23,7 +23,6 @@ export class DynamicFormPreguntaComponent {
     }
   }
 
-
   get isValid() {
     let formControls = this.form.controls[this.pregunta.PreguntaID];
     return formControls.valid;

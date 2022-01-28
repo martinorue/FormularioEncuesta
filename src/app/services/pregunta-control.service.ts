@@ -18,7 +18,6 @@ export class PreguntaControlService {
         
         group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl( '', Validators.required)
           : new FormControl('');
-          //group[pregunta.tipo] = new FormControl(pregunta.tipo);
       }
       else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
         group[pregunta.PreguntaID] = this.formArray(pregunta);
@@ -30,7 +29,6 @@ export class PreguntaControlService {
     group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
     this.fg = new FormGroup(group);
-    console.log(this.fg);
     
     return this.fg;
   }
@@ -40,7 +38,6 @@ export class PreguntaControlService {
     for(let opcion of pregunta.Opciones){
       arr.push(new FormControl([opcion.OpcionID, opcion.checked || false]));
     }
-    // console.log(arr.controls);
     
     return arr;
 

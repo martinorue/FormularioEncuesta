@@ -1,0 +1,10 @@
+<div class="container" fxLayout="column" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around center"
+  fxLayoutGap="10px" fxLayoutGap.xs="0">
+  
+  <div class="spinner-wrapper" *ngIf="loading$ | async">
+  <mat-spinner color="warn" class="mat-spinner"></mat-spinner>
+  <h4>Cargando encuesta...</h4>
+</div>
+
+  <app-dynamic-form [preguntas]="preguntas$ | async" [encuesta]="encuesta$ | async"></app-dynamic-form>
+</div>

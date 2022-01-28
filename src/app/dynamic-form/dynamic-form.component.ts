@@ -43,11 +43,11 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     private pcs: PreguntaControlService,
     private servicePregunta: PreguntaService,
     private respuestaService: RespuestaService) {
-    // this.loadBuilder();
   }
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
+    
   }
 
   onSubmit() {
@@ -63,7 +63,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       Correo: this.form.value.emailEncuestado,
       Celular: this.form.value.celEncuestado
     }
-    // console.log(this.form.value);
 
     for (let c in ctrls) {
       if (c != 'nombreEncuestado' && c != 'emailEncuestado' && c != 'celEncuestado') {
@@ -82,11 +81,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
           textoRespuestas.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
         }
         else if (tipoPregunta == 'OPCIONMULTIPLE') {
-          console.log(c);
-          
           let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
           textoRespuestas.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
-          console.log(opcionesSeleccionadas);
         }
       }
 
@@ -138,10 +134,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   obtenerOpcionesSeleccionadas(c: string): { OpcionID: number, OpcionTexto: string }[] {
     let opcionesSeleccionadas = [];
-    // console.log(c);
     
     const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
-    // console.log(pregunta);
     
     if (pregunta != null) {
       for (let opcion of pregunta.Opciones) {
@@ -156,10 +150,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   obtenerTipo(c: string): string {
     let pos = +c;
-    // console.log(pos);
     const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
     if (pregunta != null) {
-      // console.log(pregunta.Tipo);
       return pregunta.Tipo;
     } else {
       return ''

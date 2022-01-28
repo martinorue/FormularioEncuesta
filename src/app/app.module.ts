@@ -10,7 +10,7 @@ import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { PreguntaService } from './services/pregunta.service';
 import { PreguntaControlService } from './services/pregunta-control.service';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,12 +21,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatDividerModule } from '@angular/material/divider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatCardModule } from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 
-/*Responsive*/
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { EncuestaComponent } from './encuesta/encuesta.component';
+import { GetEncuestaInterceptor } from './get-encuesta.interceptor';
 
 
 
@@ -34,7 +35,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   declarations: [
     AppComponent,
     DynamicFormPreguntaComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    EncuestaComponent
   ],
   imports: [
     BrowserModule,
@@ -51,13 +53,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     FormsModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
-    MatDividerModule,
     MatIconModule
   ],
   providers: [
     PreguntaService,
     PreguntaControlService,
-    ProcessHttpmsgService
+    ProcessHttpmsgService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GetEncuestaInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
