@@ -4,7 +4,7 @@
       <label [attr.for]="pregunta.PreguntaID"><h2>{{pregunta.TextoPregunta}}</h2></label>
     </div>
     <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="primary">
-      <textarea matInput placeholder="Escriba su respuesta..." [formControlName]="pregunta.PreguntaID" required
+      <textarea matInput placeholder="Escriba su respuesta..." [formControlName]="pregunta.PreguntaID"
         rows="4">
         </textarea>
     </mat-form-field>

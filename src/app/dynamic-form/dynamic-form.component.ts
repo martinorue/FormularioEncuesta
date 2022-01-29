@@ -47,7 +47,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
-    
   }
 
   onSubmit() {
