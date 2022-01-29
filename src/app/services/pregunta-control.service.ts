@@ -10,14 +10,14 @@ export class PreguntaControlService {
 
   constructor() { }
 
-  toFormGroup(encuestado:IEncuestado, preguntas?: Pregunta[]) {
+  toFormGroup(encuestado: IEncuestado, preguntas?: Pregunta[]) {
     const group: any = {};
 
     preguntas?.forEach(pregunta => {
       if (pregunta.Tipo == 'TEXTOLIBRE' || pregunta.Tipo == 'OPCIONSIMPLE') {
-        
-        group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl( '', Validators.required)
-          : new FormControl('');
+
+        group[pregunta.PreguntaID] = pregunta.Requerida ? new FormControl('', [Validators.required, this.noWhitespaceValidator])
+          : new FormControl('', [Validators.pattern(/[\S]/)]);
       }
       else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
         group[pregunta.PreguntaID] = this.formArray(pregunta);
@@ -29,16 +29,26 @@ export class PreguntaControlService {
     group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
     this.fg = new FormGroup(group);
-    
+
     return this.fg;
   }
 
+
+  public noWhitespaceValidator(control: FormControl) {
+    const isWhitespace = control.value.length > 0 
+    && (control.value).trim().length === 0;
+    const isValid = !isWhitespace;
+    return isValid ? null : { 'whitespace': true };
+  }
+
+  
+
   formArray(pregunta: Pregunta): FormArray {
     const arr = new FormArray([]);
-    for(let opcion of pregunta.Opciones){
+    for (let opcion of pregunta.Opciones) {
       arr.push(new FormControl([opcion.OpcionID, opcion.checked || false]));
     }
-    
+
     return arr;
 
   }

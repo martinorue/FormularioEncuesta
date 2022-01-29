@@ -98,7 +98,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
       respuesta.Respuestas.filter(respuesta => {
         if (respuesta.Tipo == 'OPCIONMULTIPLE') {
-          this.resetCheckboxes(respuesta.PreguntaID.toString());//!!
+          this.resetCheckboxes(respuesta.PreguntaID.toString());
         }
       });
     }
