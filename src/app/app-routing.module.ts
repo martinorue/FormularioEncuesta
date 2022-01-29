@@ -6,6 +6,10 @@ import { EncuestaComponent } from './encuesta/encuesta.component';
 
 export const routes: Routes = [
   {
+    path: 'EncuestasOpen/0',
+    redirectTo:'EncuestasOpen/1',
+  },
+  {
     path: 'EncuestasOpen/:id',
     component: EncuestaComponent,
     pathMatch: 'full'
@@ -13,8 +17,15 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo:'EncuestasOpen/1',
-    pathMatch: 'full'
-  }
+    pathMatch: 'prefix'
+  },
+  {
+    path: 'EncuestasOpen',
+    redirectTo:'EncuestasOpen/1',
+    pathMatch: 'prefix'
+  },
+  
+
 ];
 
 @NgModule({
