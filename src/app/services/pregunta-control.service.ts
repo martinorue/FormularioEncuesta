@@ -35,8 +35,7 @@ export class PreguntaControlService {
 
 
   public noWhitespaceValidator(control: FormControl) {
-    const isWhitespace = control.value.length > 0 
-    && (control.value).trim().length === 0;
+    const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
   }
