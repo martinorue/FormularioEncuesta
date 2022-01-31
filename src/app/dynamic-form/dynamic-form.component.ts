@@ -120,9 +120,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   obtenerOpcionSeleccionada(c: string, textoRespuesta: string): number {
     let opcionSeleccionadaId: number = 0;
-    let pos = +c;
-    if (this.preguntas !== null) {
-      for (let opcion of this.preguntas[pos - 1].Opciones) {
+    const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
+
+    if (pregunta != null) {
+      for (let opcion of pregunta.Opciones) {
         if (opcion.OpcionTexto == textoRespuesta) {
           opcionSeleccionadaId = opcion.OpcionID;
         }
