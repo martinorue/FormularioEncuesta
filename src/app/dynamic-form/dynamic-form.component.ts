@@ -90,7 +90,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     if (this.encuesta != null) {
       const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
       const resJSON = JSON.stringify(respuesta);
-      console.log(resJSON);
 
       this.guardarRespuesta(resJSON);
 
