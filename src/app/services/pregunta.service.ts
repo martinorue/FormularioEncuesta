@@ -4,16 +4,13 @@ import { Pregunta } from '../domain/pregunta';
 import { Observable, of } from 'rxjs';
 import {map} from 'rxjs/operators';
 import { Encuesta } from '../domain/encuesta';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreguntaService {
-
-  private url = 'http://localhost/BackendProyectoFinalAP/';
-  private url_local = 'http://localhost:3000/encuestas';
-  private url_azure = 'https://mr87187.azurewebsites.net/api/encuestas';
 
   constructor(public httpClient: HttpClient) {
   }
@@ -26,7 +23,7 @@ export class PreguntaService {
   }
 
   getEncuesta(id:number): Observable<Encuesta>{
-    return this.httpClient.get<Encuesta>('https://mr87187.azurewebsites.net/api/EncuestasOpen?id=' + id);
+    return this.httpClient.get<Encuesta>(`${environment.baseUri}/api/EncuestasOpen?id=` + id);
   }
 
 }
