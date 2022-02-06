@@ -53,7 +53,7 @@
       
       <!-- botón submit -->
       <div class="form-row" *ngIf="preguntas">
-        <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Save</button>
+        <button mat-raised-button type="submit" [disabled]="!form.valid" color="accent">Enviar</button>
         <span fxFlex *ngIf="respuestaErrMess">
           <strong>Error: {{respuestaErrMess}}</strong>
         </span>
