@@ -7,7 +7,6 @@ import { Pregunta } from '../domain/pregunta';
 @Injectable()
 export class PreguntaControlService {
   fg!: FormGroup;
-
   constructor() { }
 
   toFormGroup(encuestado: IEncuestado, preguntas?: Pregunta[]) {
@@ -29,10 +28,9 @@ export class PreguntaControlService {
     group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
     this.fg = new FormGroup(group);
-
+    
     return this.fg;
   }
-
 
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
@@ -40,21 +38,13 @@ export class PreguntaControlService {
     return isValid ? null : { 'whitespace': true };
   }
 
-  
-
   formArray(pregunta: Pregunta): FormArray {
     const arr = new FormArray([]);
     for (let opcion of pregunta.Opciones) {
       arr.push(new FormControl([opcion.OpcionID, opcion.checked || false]));
     }
-
     return arr;
-
   }
-
-
-
-
 }
 
 

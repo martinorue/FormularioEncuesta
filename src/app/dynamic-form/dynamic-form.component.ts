@@ -41,7 +41,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   constructor(
     private pcs: PreguntaControlService,
-    private servicePregunta: PreguntaService,
     private respuestaService: RespuestaService) {
   }
 
@@ -133,9 +132,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   obtenerOpcionesSeleccionadas(c: string): { OpcionID: number, OpcionTexto: string }[] {
     let opcionesSeleccionadas = [];
-    
+
     const pregunta = this.preguntas?.find(p => p.PreguntaID == +c);
-    
+
     if (pregunta != null) {
       for (let opcion of pregunta.Opciones) {
         if (opcion.checked) {
@@ -156,7 +155,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
   }
 
-
   guardarRespuesta(respuesta: string) {
     this.respuestaService.submitRespuesta(respuesta)
       .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit,
@@ -165,6 +163,16 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
+  }
+
+  chequeadas(): boolean {
+    if(this.preguntas?.filter(pregunta => pregunta?.Requerida == true 
+      && pregunta.Tipo == 'OPCIONMULTIPLE' 
+      && pregunta?.Opciones?.filter(opcion => opcion.checked == true).length == 0).length == 0){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   matcher = new ErrorStateMatcher();

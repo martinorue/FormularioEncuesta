@@ -94,9 +94,12 @@
             },
             "development": {
               "browserTarget": "ejemplo-dynamic-forms:build:development"
+            },
+            "local": {
+              "browserTarget": "ejemplo-dynamic-forms:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

@@ -10,9 +10,4 @@ export class Encuesta{
     Objetivo!: string;
     Preguntas!: Pregunta[];
 
-    // constructor(EncuestaID: number, Preguntas: Pregunta[]){
-    //     this.EncuestaID = EncuestaID;
-    //     this.Preguntas = Preguntas;
-    // }
-
 }

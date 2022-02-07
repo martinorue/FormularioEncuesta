@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { MatCheckboxDefaultOptions, MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 
 import { Pregunta } from '../domain/pregunta';
+import { PreguntaControlService } from '../services/pregunta-control.service';
 
 @Component({
   selector: 'app-pregunta',
@@ -14,6 +15,10 @@ import { Pregunta } from '../domain/pregunta';
 export class DynamicFormPreguntaComponent {
   @Input() pregunta!: Pregunta;
   @Input() form!: FormGroup;
+  
+  constructor(private _preguntaControlService: PreguntaControlService){
+    
+  }
 
   chequeado(OpcionId: number){
     for(let opcion of this.pregunta.Opciones){
@@ -23,8 +28,21 @@ export class DynamicFormPreguntaComponent {
     }
   }
 
+  hayChequeadas(): boolean{
+    if(this.pregunta.Requerida == true && this.pregunta.Tipo == 'OPCIONMULTIPLE'){
+      if(this.pregunta.Opciones.filter(opcion => opcion.checked == true).length == 0){
+        return false;
+      }else{
+        return true;
+      }
+    }else{
+      return true;
+    }
+  }
+
   get isValid() {
     let formControls = this.form.controls[this.pregunta.PreguntaID];
+    
     return formControls.valid;
   }
 }

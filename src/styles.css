@@ -11,6 +11,10 @@ body {
     padding: 8px;
 }
 
+.checkbox-error{
+    font-size: 12px;
+}
+
 .full-width{
     width: 75%;
 }
