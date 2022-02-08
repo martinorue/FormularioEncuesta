@@ -32,19 +32,30 @@ body {
     margin-bottom: 15px;
 }
 
-.spinner-wrapper{
+/* .spinner-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 20px);
+    position: absolute;
 }
 
 .mat-spinner{
     color: white;
     padding: 12px;
-}
-/* 
-.denominacion-encuesta{
-    text-align:center;
 } */
+
+.snackbar-error{
+    background: #F44336;
+    color: white;
+}
+  
+.snackbar-info{
+    background-color: #4caf50;
+    color: white;
+    border: none;
+}
+
+
+
 

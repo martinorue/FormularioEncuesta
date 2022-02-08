@@ -28,6 +28,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 import { GetEncuestaInterceptor } from './get-encuesta.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -53,7 +54,8 @@ import { GetEncuestaInterceptor } from './get-encuesta.interceptor';
     FormsModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule,
   ],
   providers: [
     PreguntaService,

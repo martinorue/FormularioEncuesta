@@ -11,6 +11,7 @@ import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
 import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { IEncuestado } from '../domain/encuestado';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -28,6 +29,8 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   respuestaSubmit!: FeedbackEncuesta;
   msjUsuario: string = '';
   respuestaErrMess!: string;
+  respuestaHttp!: number;
+  // mostrarForm: boolean = true;
 
   encuestado: IEncuestado = {
     PersonaId: 0,
@@ -40,12 +43,13 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   @ViewChild('eform') encuestaFormDirective: any
 
   constructor(
-    private pcs: PreguntaControlService,
-    private respuestaService: RespuestaService) {
+    private _pcs: PreguntaControlService,
+    private _respuestaService: RespuestaService,
+    private _messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
+    this.form = this._pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
   }
 
   onSubmit() {
@@ -100,8 +104,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         }
       });
     }
-    this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
-    setTimeout(() => this.msjUsuario = '', 3000);
+
+    // this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
+    // this.mostrarForm = false;
+    // setTimeout(() => this.mostrarForm = true, 2000);
   }
 
   resetCheckboxes(preguntaId: string) {
@@ -156,13 +162,16 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   }
 
   guardarRespuesta(respuesta: string) {
-    this.respuestaService.submitRespuesta(respuesta)
-      .subscribe(respuestaSubmit => this.respuestaSubmit = respuestaSubmit,
-        errmess => this.respuestaErrMess = <any>errmess);
+    this._respuestaService.submitRespuesta(respuesta)
+    .subscribe(response => {this.respuestaHttp = response.status
+      if(this.respuestaHttp == 200){
+        this._messageService.showInfo('Se guardaron las respuestas. Gracias por participar', 'top right')
+      }
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.form = this.pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
+    this.form = this._pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
   }
 
   chequeadas(): boolean {
