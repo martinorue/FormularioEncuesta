@@ -4,7 +4,6 @@ import { Encuesta } from '../domain/encuesta';
 import { Pregunta } from '../domain/pregunta';
 import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
-import { PreguntaService } from '../services/pregunta.service';
 import { RespuestaService } from '../services/respuesta.service';
 import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
 import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
@@ -30,7 +29,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   msjUsuario: string = '';
   respuestaErrMess!: string;
   respuestaHttp!: number;
-  // mostrarForm: boolean = true;
 
   encuestado: IEncuestado = {
     PersonaId: 0,
@@ -38,7 +36,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     Correo: 'emailEncuestado',
     Celular: 'celEncuestado'
   };
-  // datosEncuestadoForm: FormGroup | undefined;
 
   @ViewChild('eform') encuestaFormDirective: any
 
@@ -104,10 +101,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         }
       });
     }
-
-    // this.msjUsuario = 'Se guardaron las respuestas. Gracias por su participación.'
-    // this.mostrarForm = false;
-    // setTimeout(() => this.mostrarForm = true, 2000);
   }
 
   resetCheckboxes(preguntaId: string) {

@@ -8,18 +8,6 @@ import { MessageService } from './message.service';
 })
 export class ProcessHttpmsgService {
 
-  // public handleError(error: HttpErrorResponse | any){
-  //   let errMsg: string;
-
-  //   if(error.error instanceof ErrorEvent){
-  //     errMsg = error.error.message;
-  //   }else{
-  //     errMsg = `${error.status} - ${error.statusText || ''}`; 
-  //   }
-
-  //   return throwError(errMsg);
-  // }
-
   constructor(private messageService: MessageService) { }
 
   handleError(error: HttpErrorResponse): Observable<never> {

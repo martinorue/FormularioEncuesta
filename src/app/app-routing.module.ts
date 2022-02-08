@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 
 export const routes: Routes = [
@@ -24,8 +22,11 @@ export const routes: Routes = [
     redirectTo:'EncuestasOpen/1',
     pathMatch: 'prefix'
   },
-  
-
+  {
+    path: '**',
+    redirectTo:'EncuestasOpen/1',
+    pathMatch: 'prefix'
+  }
 ];
 
 @NgModule({
