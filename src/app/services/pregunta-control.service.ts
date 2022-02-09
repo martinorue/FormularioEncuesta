@@ -23,7 +23,7 @@ export class PreguntaControlService {
       }
     });
 
-    group[encuestado?.Nombre!] = new FormControl('');
+    group[encuestado?.Nombre!] = new FormControl('' , [Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
     group[encuestado?.Correo!] = new FormControl('', [Validators.email]);
     group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
