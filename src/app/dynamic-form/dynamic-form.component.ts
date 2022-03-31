@@ -1,16 +1,12 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Encuesta } from '../domain/encuesta';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Pregunta } from '../domain/pregunta';
-import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 import { RespuestaService } from '../services/respuesta.service';
-import { RespuestaOpcionMultiple } from '../domain/respuestaOpcionMultiple';
-import { RespuestaTextoLibre } from '../domain/respuestaTextoLibre';
-import { RespuestaSeleccionUnica } from '../domain/respuestaSeleccionUnica';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { IEncuestado } from '../domain/encuestado';
+import { IEncuestaContestada, IEncuestado, IRespuesta, IRespuestaMultiple, IRespuestaSimple, IRespuestaTextoLibre } from '../domain/respuesta';
 import { MessageService } from '../services/message.service';
+import { IEncuesta } from '../domain/encuesta';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -20,15 +16,17 @@ import { MessageService } from '../services/message.service';
 export class DynamicFormComponent implements OnInit, OnChanges {
 
   @Input() preguntas: Pregunta[] | null = [];
-  @Input() encuesta!: Encuesta | null;
+  @Input() encuesta!: IEncuesta | null;
   form!: FormGroup;
+  toppings!: FormGroup;
+  multiples!: FormGroup;
   respuestas!: string;
   feedback!: string;
   checked!: boolean;
-  respuestaSubmit!: FeedbackEncuesta;
   msjUsuario: string = '';
   respuestaErrMess!: string;
   respuestaHttp!: number;
+  matcher = new ErrorStateMatcher();
 
   encuestado: IEncuestado = {
     PersonaId: 0,
@@ -42,7 +40,13 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   constructor(
     private _pcs: PreguntaControlService,
     private _respuestaService: RespuestaService,
-    private _messageService: MessageService) {
+    private _messageService: MessageService,
+    private _fb: FormBuilder) {
+    this.toppings = _fb.group({
+      pepperoni: false,
+      extracheese: false,
+      mushroom: false,
+    });
   }
 
   ngOnInit() {
@@ -52,9 +56,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   onSubmit() {
     this.respuestas = JSON.stringify(this.form.getRawValue());
     this.feedback = this.form.value;
+    console.log('JSON.stringify(this.form.getRawValue())', this.respuestas);
+    console.log('this.form.value', this.feedback);
     const ctrls = this.form.controls;
-    let textoRespuestas = [];
-    let valorRespuesta = '';
+    let textoRespuestas: IRespuesta[] = [];
 
     const encuestado: IEncuestado = {
       PersonaId: 0,
@@ -63,44 +68,99 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       Celular: this.form.value.celEncuestado
     }
 
-    for (let c in ctrls) {
-      if (c != 'nombreEncuestado' && c != 'emailEncuestado' && c != 'celEncuestado') {
-        valorRespuesta = this.form.get(c)?.value;
-        let preguntaId = c;
-        const d = new Date();
-        let fechaHoraContestada = d.toISOString();
-        let tipoPregunta = this.obtenerTipo(c);
+    if (this.encuesta != null) {
 
-        if (tipoPregunta == 'TEXTOLIBRE') {
-          textoRespuestas.push(new RespuestaTextoLibre(fechaHoraContestada, tipoPregunta, +preguntaId, valorRespuesta));
-        } else if (tipoPregunta == 'OPCIONSIMPLE') {
-          let opcionTexto = this.form.get(c)?.value;
-          let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
-          let opcionSeleccionada = { OpcionID: opcionId, OpcionTexto: opcionTexto };
-          textoRespuestas.push(new RespuestaSeleccionUnica(fechaHoraContestada, tipoPregunta, +preguntaId, opcionSeleccionada));
+      for (let c in ctrls) {
+        if (c != 'nombreEncuestado' && c != 'emailEncuestado' && c != 'celEncuestado') {
+          let valorRespuesta = this.form.get(c)?.value;
+          console.log(this.form.get(c));
+          debugger
+          let preguntaId = c;
+          const d = new Date();
+          let fechaHoraContestada = d.toISOString();
+          let tipoPregunta = this.obtenerTipo(c);
+
+
+          if (tipoPregunta == 'TEXTOLIBRE') {
+
+            const respuestaTextoLibre: IRespuestaTextoLibre = {
+              RespuestaID: 0,
+              FechaHoraContestada: fechaHoraContestada,
+              Tipo: tipoPregunta,
+              PreguntaID: +preguntaId,
+              TextoRespuesta: valorRespuesta
+            }
+
+            textoRespuestas.push(respuestaTextoLibre);
+
+          } else if (tipoPregunta == 'OPCIONSIMPLE') {
+            let opcionTexto = this.form.get(c)?.value;
+            let opcionId = this.obtenerOpcionSeleccionada(c, opcionTexto);
+            let opcionSeleccionada = { OpcionID: opcionId, OpcionTexto: opcionTexto };
+
+            const respuestaOpcionSimple: IRespuestaSimple = {
+              RespuestaID: 0,
+              FechaHoraContestada: fechaHoraContestada,
+              Tipo: tipoPregunta,
+              PreguntaID: +preguntaId,
+              OpcionSeleccionada: opcionSeleccionada
+            }
+
+            textoRespuestas.push(respuestaOpcionSimple);
+          }
+          else if (tipoPregunta == 'OPCIONMULTIPLE') {
+            let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
+
+            const respuestaOpcionMultiple: IRespuestaMultiple = {
+              RespuestaID: 0,
+              FechaHoraContestada: fechaHoraContestada,
+              Tipo: tipoPregunta,
+              PreguntaID: +preguntaId,
+              OpcionesSeleccionadas: opcionesSeleccionadas
+            }
+            textoRespuestas.push(respuestaOpcionMultiple);
+          }
         }
-        else if (tipoPregunta == 'OPCIONMULTIPLE') {
-          let opcionesSeleccionadas = this.obtenerOpcionesSeleccionadas(c);
-          textoRespuestas.push(new RespuestaOpcionMultiple(fechaHoraContestada, tipoPregunta, +preguntaId, opcionesSeleccionadas));
-        }
+
       }
 
+      const respuesta: IEncuestaContestada =
+      {
+        EncuestaID: this.encuesta.EncuestaID,
+        Respuestas: textoRespuestas,
+        Encuestado: encuestado,
+      }
+
+      console.log(JSON.stringify(respuesta));
+      debugger
     }
 
-    if (this.encuesta != null) {
-      const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
-      const resJSON = JSON.stringify(respuesta);
 
-      this.guardarRespuesta(resJSON);
 
-      this.encuestaFormDirective.resetForm();
+    // if (this.encuesta != null) {
+    //   const respuesta = new FeedbackEncuesta(this.encuesta.EncuestaID, textoRespuestas, encuestado);
+    //   const resJSON = JSON.stringify(respuesta);
 
-      respuesta.Respuestas.filter(respuesta => {
-        if (respuesta.Tipo == 'OPCIONMULTIPLE') {
-          this.resetCheckboxes(respuesta.PreguntaID.toString());
+    //   this.guardarRespuesta(resJSON);
+
+    //   this.encuestaFormDirective.resetForm();
+
+    //   respuesta.Respuestas.filter(respuesta => {
+    //     if (respuesta.Tipo == 'OPCIONMULTIPLE') {
+    //       this.resetCheckboxes(respuesta.PreguntaID.toString());
+    //     }
+    //   });
+    // }
+  }
+
+  guardarRespuesta(respuesta: string) {
+    this._respuestaService.submitRespuesta(respuesta)
+      .subscribe(response => {
+        this.respuestaHttp = response.status
+        if (this.respuestaHttp == 200) {
+          this._messageService.showInfo('Se guardaron las respuestas. Gracias por participar', 'top right')
         }
-      });
-    }
+      })
   }
 
   resetCheckboxes(preguntaId: string) {
@@ -154,30 +214,21 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     }
   }
 
-  guardarRespuesta(respuesta: string) {
-    this._respuestaService.submitRespuesta(respuesta)
-    .subscribe(response => {this.respuestaHttp = response.status
-      if(this.respuestaHttp == 200){
-        this._messageService.showInfo('Se guardaron las respuestas. Gracias por participar', 'top right')
-      }
-    })
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.form = this._pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
   }
 
   chequeadas(): boolean {
-    if(this.preguntas?.filter(pregunta => pregunta?.Requerida == true 
-      && pregunta.Tipo == 'OPCIONMULTIPLE' 
-      && pregunta?.Opciones?.filter(opcion => opcion.checked == true).length == 0).length == 0){
+    if (this.preguntas?.filter(pregunta => pregunta?.Requerida == true
+      && pregunta.Tipo == 'OPCIONMULTIPLE'
+      && pregunta?.Opciones?.filter(opcion => opcion.checked == true).length == 0).length == 0) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  matcher = new ErrorStateMatcher();
 
 }
 

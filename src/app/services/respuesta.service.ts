@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { FeedbackEncuesta } from '../domain/feedbackEncuesta';
 import { ProcessHttpmsgService } from './process-httpmsg.service';
 
 @Injectable({
@@ -21,6 +20,6 @@ export class RespuestaService {
       observe: 'response' as 'body'
     };
     return this.http.post<HttpResponse<string>>(`${environment.baseUri}/api/ContestarOpen`, respuesta, httpOptions)
-    .pipe(catchError(this.processHttpmsgService.handleError));
+      .pipe(catchError(this.processHttpmsgService.handleError));
   }
 }

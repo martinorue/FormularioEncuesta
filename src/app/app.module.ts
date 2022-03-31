@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +12,7 @@ import { PreguntaControlService } from './services/pregunta-control.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 /*Angular Material*/
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,9 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 import { GetEncuestaInterceptor } from './get-encuesta.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -51,6 +50,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatCheckboxModule,
     MatCardModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatIconModule,
