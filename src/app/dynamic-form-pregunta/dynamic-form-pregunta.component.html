@@ -33,24 +33,21 @@
       </mat-form-field>
     </div>
 
-    <!-- [formGroup]="multiples" -->
-    <!-- <div *ngSwitchCase="'OPCIONMULTIPLE'">
+    <!--  -->
+    <div *ngSwitchCase="'OPCIONMULTIPLE'" [formGroup]="multiples">
       <label *ngFor="let opcion of pregunta.Opciones">
         <mat-checkbox
           [id]="opcion.OpcionTexto"
-          [formArrayName]="pregunta.PreguntaID"
-          [checked]="opcion.checked"
-          (click)="chequeado(opcion.OpcionID)"
-          type="checkbox"
-          class="checkbox"
+          [formArrayName]="opcion.OpcionID"
         >
           {{ opcion.OpcionTexto }}
         </mat-checkbox>
       </label>
-      <mat-error class="checkbox-error" *ngIf="!hayChequeadas()">
+
+      <!-- <mat-error class="checkbox-error" *ngIf="!hayChequeadas()">
         La pregunta es obligatoria
-      </mat-error>
-    </div> -->
+      </mat-error> -->
+    </div>
 
     <section
       *ngSwitchCase="'OPCIONMULTIPLE'"

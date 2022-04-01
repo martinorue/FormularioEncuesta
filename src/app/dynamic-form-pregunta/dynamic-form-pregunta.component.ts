@@ -16,7 +16,8 @@ export class DynamicFormPreguntaComponent {
   @Input() pregunta!: Pregunta;
   @Input() form!: FormGroup;
   @Input() toppings!: FormGroup;
-  constructor(private _preguntaControlService: PreguntaControlService) {
+  @Input() multiples!: FormGroup;
+  constructor() {
 
   }
 

@@ -6,13 +6,12 @@ import { Pregunta } from '../domain/pregunta';
 @Injectable()
 export class PreguntaControlService {
   fg!: FormGroup;
-  // multiples_fg!: FormGroup;
+  multiples_fg!: FormGroup;
 
   constructor() { }
 
   toFormGroup(encuestado: IEncuestado, preguntas?: Pregunta[]) {
     const group: any = {};
-    const multiples: any = {};
 
     preguntas?.forEach(pregunta => {
       if (pregunta.Tipo == 'TEXTOLIBRE' || pregunta.Tipo == 'OPCIONSIMPLE') {
@@ -21,7 +20,7 @@ export class PreguntaControlService {
           : new FormControl('', [Validators.pattern(/[\S]/)]);
       }
       else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
-        group[pregunta.PreguntaID] = this.formArray(pregunta);
+        // group[pregunta.PreguntaID] = this.formArray(pregunta);
         // multiples[pregunta.PreguntaID] = this.formArray(pregunta);
       }
     });
@@ -36,6 +35,20 @@ export class PreguntaControlService {
     return this.fg;
   }
 
+  toFormGroupMultiples(preguntas?: Pregunta[]): FormGroup {
+    const multiples: any = {};
+    preguntas?.forEach(pregunta => {
+      if (pregunta.Tipo == 'OPCIONMULTIPLE') {
+        for (let opcion of pregunta.Opciones) {
+          multiples[opcion.OpcionID] = new FormControl('')
+        }
+        // group[pregunta.PreguntaID] = this.formArray(pregunta);
+      }
+    });
+    this.multiples_fg = new FormGroup(multiples);
+    return this.multiples_fg;
+  }
+
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
@@ -45,7 +58,7 @@ export class PreguntaControlService {
   formArray(pregunta: Pregunta): FormArray {
     const arr = new FormArray([]);
     for (let opcion of pregunta.Opciones) {
-      arr.push(new FormControl([opcion.OpcionID, opcion.checked || false]));
+      arr.push(new FormControl(false));
     }
     return arr;
   }
