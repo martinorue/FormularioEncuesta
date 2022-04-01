@@ -46,11 +46,21 @@ export class DynamicFormComponent implements OnInit, OnChanges {
       pepperoni: false,
       extracheese: false,
       mushroom: false,
-    });
+    })
+
   }
 
   ngOnInit() {
     this.form = this._pcs.toFormGroup(this.encuestado, this.preguntas as Pregunta[]);
+    const preguntasMultiples: Pregunta[] | undefined = this.preguntas?.filter(p => p.Tipo == 'OPCIONMULTIPLE');
+
+    for (let pm in preguntasMultiples) {
+      { pm.}
+      this.multiples = this._fb.group({
+        PreguntaID: false
+      })
+    }
+
   }
 
   onSubmit() {
