@@ -1,87 +1,118 @@
 <div *ngIf="preguntas && encuesta">
   <div *ngIf="encuesta.Estado == 'PUBLICADA'">
-    <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
+    <form (ngSubmit)="onSubmit()" #eform="ngForm" [formGroup]="form">
       <mat-card>
         <h1 class="denominacion-encuesta">{{ encuesta.Denominacion }}</h1>
         <p>Nos encantaría conocer tu opinión.</p>
       </mat-card>
-      <div *ngFor="let pregunta of preguntas" class="form-row">
+      <!-- <div *ngFor="let pregunta of preguntas">
         <mat-card class="mat-card">
-          <app-pregunta
-            [pregunta]="pregunta"
-            [form]="form"
-            [toppings]="toppings"
-            [multiples]="multiples"
-          ></app-pregunta>
+          <app-pregunta [pregunta]="pregunta" [form]="form">
+          </app-pregunta>
+        </mat-card>
+      </div> -->
+
+      <div formGroupName="Respuestas">
+        <div *ngFor="let pregunta of preguntas">
+          <div>
+            <label [attr.for]="pregunta.PreguntaID">
+              <h2>{{ pregunta.TextoPregunta }}</h2>
+            </label>
+          </div>
+          <div [ngSwitch]="pregunta.Tipo">
+            <!-- <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="primary">
+              <textarea matInput placeholder="Escriba su respuesta..." formControlName="TextoRespuesta" rows="4">
+            </textarea>
+              <mat-error> La pregunta es obligatoria </mat-error>
+            </mat-form-field>
+            
+            <div *ngSwitchCase="'OPCIONSIMPLE'">
+              <mat-form-field class="full-width" class="full-width" color="accent">
+                <mat-select formControlName="TextoRespuesta">
+                  <mat-option *ngFor="let opt of pregunta.Opciones" [value]="opt.OpcionTexto">{{ opt.OpcionTexto }}
+                  </mat-option>
+                </mat-select>
+                <mat-error> La pregunta es obligatoria </mat-error>
+              </mat-form-field>
+            </div> -->
+
+            <div *ngSwitchCase="'OPCIONMULTIPLE'">
+              <div id="multiples">
+                <div class="checkbox" 
+                  formArrayName="multiples"
+                  *ngFor="let item of getMultiplesControls(); let i = index" >
+                  <label>
+                    <input type="checkbox" [formControlName]="i"> {{ multiples![i] }}/>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- <div *ngSwitchCase="'OPCIONMULTIPLE'">
+              <label *ngFor="let opcion of pregunta.Opciones">
+                <mat-checkbox>
+                  {{ opcion.OpcionTexto }}
+                </mat-checkbox>
+              </label>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+
+      <div formGroupName="Encuestado">
+        <mat-card>
+          <mat-card-title>Datos personales (opcional)</mat-card-title>
+          <br />
+          <mat-card-subtitle>Dejanos tus datos para enterarte de todas las
+            novedades.</mat-card-subtitle>
+
+          <!-- nombre -->
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="Nombre" />
+          </mat-form-field>
+
+          <!--email  -->
+          <p>
+            <mat-form-field class="full-width" appearance="fill" color="primary">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="Correo" [errorStateMatcher]="matcher"
+                placeholder="Ej. ejemplo@ejemplo.com" />
+              <!-- <mat-error *ngIf="form.controls['Correo'].hasError('email')">
+                Por favor, ingrese una dirección de correo válida
+              </mat-error> -->
+            </mat-form-field>
+          </p>
+
+          <!-- celular -->
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Celular</mat-label>
+            <span matPrefix>+598 &nbsp;</span>
+            <input type="tel" matInput placeholder="099-123-456" formControlName="Celular" />
+            <mat-icon matSuffix>mode_edit</mat-icon>
+            <!-- <mat-error *ngIf="form.controls['Celular'].hasError('pattern')">
+              Por favor, ingrese un número de celular válido (solo números, y
+              entre 3 y 45 dígitos)
+            </mat-error> -->
+          </mat-form-field>
         </mat-card>
       </div>
 
-      <mat-card>
-        <mat-card-title>Datos personales (opcional)</mat-card-title>
-        <br />
-        <mat-card-subtitle
-          >Dejanos tus datos para enterarte de todas las
-          novedades.</mat-card-subtitle
-        >
-        <!-- nombre -->
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombreEncuestado" />
-        </mat-form-field>
 
-        <!--email  -->
-        <p>
-          <mat-form-field class="full-width" appearance="fill" color="primary">
-            <mat-label>Email</mat-label>
-            <input
-              type="email"
-              matInput
-              formControlName="emailEncuestado"
-              [errorStateMatcher]="matcher"
-              placeholder="Ej. ejemplo@ejemplo.com"
-            />
-            <mat-error
-              *ngIf="form.controls['emailEncuestado'].hasError('email')"
-            >
-              Por favor, ingrese una dirección de correo válida
-            </mat-error>
-          </mat-form-field>
-        </p>
 
-        <!-- celular -->
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Celular</mat-label>
-          <span matPrefix>+598 &nbsp;</span>
-          <input
-            type="tel"
-            matInput
-            placeholder="099-123-456"
-            formControlName="celEncuestado"
-          />
-          <mat-icon matSuffix>mode_edit</mat-icon>
-          <mat-error *ngIf="form.controls['celEncuestado'].hasError('pattern')">
-            Por favor, ingrese un número de celular válido (solo números, y
-            entre 3 y 45 dígitos)
-          </mat-error>
-        </mat-form-field>
-      </mat-card>
 
       <!-- botón submit -->
-      <div class="form-row" *ngIf="preguntas">
-        <button
-          mat-raised-button
-          type="submit"
-          [disabled]="!form.valid || !chequeadas()"
-          color="accent"
-        >
+      <div *ngIf="preguntas">
+        <button mat-raised-button type="submit" color="accent">
           Enviar
         </button>
         <span fxFlex *ngIf="respuestaErrMess">
           <strong>Error: {{ respuestaErrMess }}</strong>
         </span>
-        <span class="form-row" *ngIf="!respuestaErrMess">
-          <strong>{{ msjUsuario }}</strong
-          ><br />
+        <span *ngIf="!respuestaErrMess">
+          <strong>{{ msjUsuario }}</strong><br />
         </span>
       </div>
     </form>

@@ -1,4 +1,4 @@
-import { Pregunta } from "./pregunta";
+import { IPregunta } from "./pregunta";
 
 export interface IEncuesta {
     EncuestaID: number;
@@ -8,5 +8,5 @@ export interface IEncuesta {
     CantidadEncuestados: number;
     Estado: string;
     Objetivo: string;
-    Preguntas: Pregunta[];
+    Preguntas: IPregunta[];
 }

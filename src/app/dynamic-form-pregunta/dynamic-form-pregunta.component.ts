@@ -2,7 +2,7 @@ import { Component, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatCheckboxDefaultOptions, MAT_CHECKBOX_DEFAULT_OPTIONS } from '@angular/material/checkbox';
 
-import { Pregunta } from '../domain/pregunta';
+import { IPregunta } from '../domain/pregunta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { PreguntaControlService } from '../services/pregunta-control.service';
   // ]
 })
 export class DynamicFormPreguntaComponent {
-  @Input() pregunta!: Pregunta;
+  @Input() pregunta!: IPregunta;
   @Input() form!: FormGroup;
   @Input() toppings!: FormGroup;
   @Input() multiples!: FormGroup;
@@ -21,31 +21,31 @@ export class DynamicFormPreguntaComponent {
 
   }
 
-  chequeado(OpcionId: number) {
-    for (let opcion of this.pregunta.Opciones) {
-      if (opcion.OpcionID == OpcionId) {
-        opcion.checked = !opcion.checked;
-      }
-    }
-  }
+  // chequeado(OpcionId: number) {
+  //   for (let opcion of this.pregunta.Opciones) {
+  //     if (opcion.OpcionID == OpcionId) {
+  //       opcion.checked = !opcion.checked;
+  //     }
+  //   }
+  // }
 
-  hayChequeadas(): boolean {
-    if (this.pregunta.Requerida == true && this.pregunta.Tipo == 'OPCIONMULTIPLE') {
-      if (this.pregunta.Opciones.filter(opcion => opcion.checked == true).length == 0) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      return true;
-    }
-  }
+  // hayChequeadas(): boolean {
+  //   if (this.pregunta.Requerida == true && this.pregunta.Tipo == 'OPCIONMULTIPLE') {
+  //     if (this.pregunta.Opciones.filter(opcion => opcion.checked == true).length == 0) {
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
-  get isValid() {
-    let formControls = this.form.controls[this.pregunta.PreguntaID];
+  // get isValid() {
+  //   let formControls = this.form.controls[this.pregunta.PreguntaID];
 
-    return formControls.valid;
-  }
+  //   return formControls.valid;
+  // }
 
 
 }

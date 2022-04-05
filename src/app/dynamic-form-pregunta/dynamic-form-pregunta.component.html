@@ -1,55 +1,54 @@
 <div [formGroup]="form">
   <div [ngSwitch]="pregunta.Tipo">
-    <div>
-      <label [attr.for]="pregunta.PreguntaID"
-        ><h2>{{ pregunta.TextoPregunta }}</h2></label
-      >
-    </div>
-    <mat-form-field
-      *ngSwitchCase="'TEXTOLIBRE'"
-      class="full-width"
-      color="primary"
-    >
-      <textarea
-        matInput
-        placeholder="Escriba su respuesta..."
-        [formControlName]="pregunta.PreguntaID"
-        rows="4"
-      >
+    <div formGroupName="Respuestas">
+      <div>
+        <label [attr.for]="pregunta.PreguntaID">
+          <h2>{{ pregunta.TextoPregunta }}</h2>
+        </label>
+      </div>
+      <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="primary">
+        <textarea matInput placeholder="Escriba su respuesta..." formControlName="TextoRespuesta" rows="4">
       </textarea>
-      <mat-error> La pregunta es obligatoria </mat-error>
-    </mat-form-field>
-
-    <div *ngSwitchCase="'OPCIONSIMPLE'">
-      <mat-form-field class="full-width" class="full-width" color="accent">
-        <mat-select [formControlName]="pregunta.PreguntaID">
-          <mat-option
-            *ngFor="let opt of pregunta.Opciones"
-            [value]="opt.OpcionTexto"
-            >{{ opt.OpcionTexto }}</mat-option
-          >
-        </mat-select>
         <mat-error> La pregunta es obligatoria </mat-error>
       </mat-form-field>
+
+      <div *ngSwitchCase="'OPCIONSIMPLE'">
+        <mat-form-field class="full-width" class="full-width" color="accent">
+          <mat-select formControlName="TextoRespuesta">
+            <mat-option *ngFor="let opt of pregunta.Opciones" [value]="opt.OpcionTexto">{{ opt.OpcionTexto }}
+            </mat-option>
+          </mat-select>
+          <mat-error> La pregunta es obligatoria </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div *ngSwitchCase="'OPCIONMULTIPLE'">
+        <label *ngFor="let opcion of pregunta.Opciones">
+          <mat-checkbox>
+            {{ opcion.OpcionTexto }}
+          </mat-checkbox>
+        </label>
+
+        <!-- <mat-error class="checkbox-error" *ngIf="!hayChequeadas()">
+          La pregunta es obligatoria
+        </mat-error> -->
+      </div>
+
     </div>
+
+
 
     <!--  -->
-    <div *ngSwitchCase="'OPCIONMULTIPLE'" [formGroup]="multiples">
-      <label *ngFor="let opcion of pregunta.Opciones">
-        <mat-checkbox
-          [id]="opcion.OpcionTexto"
-          [formArrayName]="opcion.OpcionID"
-        >
-          {{ opcion.OpcionTexto }}
-        </mat-checkbox>
-      </label>
 
-      <!-- <mat-error class="checkbox-error" *ngIf="!hayChequeadas()">
-        La pregunta es obligatoria
-      </mat-error> -->
-    </div>
 
-    <section
+    <!-- <h4>Select your answer:</h4>
+      <div formArrayName="pregunta.PreguntaID">
+
+        <p *ngFor="let opcion of pregunta.Opciones"><mat-checkbox  [formControlName]="pregunta.PreguntaID">{{opcion.OpcionTexto}}</mat-checkbox></p>
+
+      </div> -->
+
+    <!-- <section
       *ngSwitchCase="'OPCIONMULTIPLE'"
       class="example-section"
       [formGroup]="toppings"
@@ -65,6 +64,6 @@
     <section class="example-section" [formGroup]="toppings">
       <h4>You chose:</h4>
       {{ toppings.value | json }}
-    </section>
+    </section> -->
   </div>
 </div>

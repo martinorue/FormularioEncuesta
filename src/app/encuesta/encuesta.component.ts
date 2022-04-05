@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PreguntaService } from '../services/pregunta.service';
-import { Pregunta } from '../domain/pregunta';
+import { IPregunta } from '../domain/pregunta';
 import { Observable } from 'rxjs';
 import { IEncuesta } from '../domain/encuesta';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { LoadingService } from '../services/loading.service';
 })
 export class EncuestaComponent implements OnInit {
 
-  preguntas$!: Observable<Pregunta[]>;
+  preguntas$!: Observable<IPregunta[]>;
   encuesta$!: Observable<IEncuesta>;
 
   loading$ = this.loader.loading$;
