@@ -5,14 +5,12 @@
         <h1 class="denominacion-encuesta">{{ encuesta.Denominacion }}</h1>
         <p>Nos encantaría conocer tu opinión.</p>
       </mat-card>
-      <!-- <div *ngFor="let pregunta of preguntas">
-        <mat-card class="mat-card">
-          <app-pregunta [pregunta]="pregunta" [form]="form">
-          </app-pregunta>
-        </mat-card>
-      </div> -->
+      <div *ngFor="let pregunta of preguntas">
+        <!-- <mat-card class="mat-card">
+          <app-pregunta [pregunta]="pregunta" [form]="form"> </app-pregunta>
+        </mat-card> -->
 
-      <div formGroupName="Respuestas">
+        <!-- <div formGroupName="Respuestas">
         <div *ngFor="let pregunta of preguntas">
           <div>
             <label [attr.for]="pregunta.PreguntaID">
@@ -20,13 +18,29 @@
             </label>
           </div>
           <div [ngSwitch]="pregunta.Tipo">
-            <!-- <mat-form-field *ngSwitchCase="'TEXTOLIBRE'" class="full-width" color="primary">
-              <textarea matInput placeholder="Escriba su respuesta..." formControlName="TextoRespuesta" rows="4">
-            </textarea>
+            <mat-form-field
+              *ngSwitchCase="'TEXTOLIBRE'"
+              class="full-width"
+              color="primary"
+            >
+              <textarea matInput placeholder="Escriba su respuesta..." rows="4">
+              </textarea>
               <mat-error> La pregunta es obligatoria </mat-error>
-            </mat-form-field>
-            
-            <div *ngSwitchCase="'OPCIONSIMPLE'">
+            </mat-form-field> -->
+
+        <div formArrayName="Respuestas">
+          <!-- <button type="button" (click)="addAlias()">
+                + Add another alias
+              </button> -->
+
+          <div *ngFor="let respuesta of Respuestas.controls; let i = index">
+            <label for="Respuesta-{{ i }}">{{ pregunta.TextoPregunta }}:</label>
+            <input id="Respuesta-{{ i }}" type="text" [formControlName]="i" />
+          </div>
+        </div>
+      </div>
+
+      <!-- <div *ngSwitchCase="'OPCIONSIMPLE'">
               <mat-form-field class="full-width" class="full-width" color="accent">
                 <mat-select formControlName="TextoRespuesta">
                   <mat-option *ngFor="let opt of pregunta.Opciones" [value]="opt.OpcionTexto">{{ opt.OpcionTexto }}
@@ -36,7 +50,7 @@
               </mat-form-field>
             </div> -->
 
-            <div *ngSwitchCase="'OPCIONMULTIPLE'">
+      <!-- <div *ngSwitchCase="'OPCIONMULTIPLE'">
               <div id="multiples">
                 <div class="checkbox" 
                   formArrayName="multiples"
@@ -46,27 +60,27 @@
                   </label>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-
-            <!-- <div *ngSwitchCase="'OPCIONMULTIPLE'">
+      <!-- <div *ngSwitchCase="'OPCIONMULTIPLE'">
               <label *ngFor="let opcion of pregunta.Opciones">
                 <mat-checkbox>
                   {{ opcion.OpcionTexto }}
                 </mat-checkbox>
               </label>
             </div> -->
-
-          </div>
+      <!-- </div>
         </div>
-      </div>
+      </div> -->
 
       <div formGroupName="Encuestado">
         <mat-card>
           <mat-card-title>Datos personales (opcional)</mat-card-title>
           <br />
-          <mat-card-subtitle>Dejanos tus datos para enterarte de todas las
-            novedades.</mat-card-subtitle>
+          <mat-card-subtitle
+            >Dejanos tus datos para enterarte de todas las
+            novedades.</mat-card-subtitle
+          >
 
           <!-- nombre -->
           <mat-form-field class="full-width" appearance="fill">
@@ -76,10 +90,19 @@
 
           <!--email  -->
           <p>
-            <mat-form-field class="full-width" appearance="fill" color="primary">
+            <mat-form-field
+              class="full-width"
+              appearance="fill"
+              color="primary"
+            >
               <mat-label>Email</mat-label>
-              <input type="email" matInput formControlName="Correo" [errorStateMatcher]="matcher"
-                placeholder="Ej. ejemplo@ejemplo.com" />
+              <input
+                type="email"
+                matInput
+                formControlName="Correo"
+                [errorStateMatcher]="matcher"
+                placeholder="Ej. ejemplo@ejemplo.com"
+              />
               <!-- <mat-error *ngIf="form.controls['Correo'].hasError('email')">
                 Por favor, ingrese una dirección de correo válida
               </mat-error> -->
@@ -90,7 +113,12 @@
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>Celular</mat-label>
             <span matPrefix>+598 &nbsp;</span>
-            <input type="tel" matInput placeholder="099-123-456" formControlName="Celular" />
+            <input
+              type="tel"
+              matInput
+              placeholder="099-123-456"
+              formControlName="Celular"
+            />
             <mat-icon matSuffix>mode_edit</mat-icon>
             <!-- <mat-error *ngIf="form.controls['Celular'].hasError('pattern')">
               Por favor, ingrese un número de celular válido (solo números, y
@@ -100,19 +128,15 @@
         </mat-card>
       </div>
 
-
-
-
       <!-- botón submit -->
       <div *ngIf="preguntas">
-        <button mat-raised-button type="submit" color="accent">
-          Enviar
-        </button>
+        <button mat-raised-button type="submit" color="accent">Enviar</button>
         <span fxFlex *ngIf="respuestaErrMess">
           <strong>Error: {{ respuestaErrMess }}</strong>
         </span>
         <span *ngIf="!respuestaErrMess">
-          <strong>{{ msjUsuario }}</strong><br />
+          <strong>{{ msjUsuario }}</strong
+          ><br />
         </span>
       </div>
     </form>

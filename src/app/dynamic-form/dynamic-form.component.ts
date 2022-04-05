@@ -4,7 +4,7 @@ import { IPregunta } from '../domain/pregunta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 import { RespuestaService } from '../services/respuesta.service';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { IEncuestaContestada, IEncuestado, IRespuesta, IRespuestaMultiple, IRespuestaSimple, IRespuestaTextoLibre } from '../domain/respuesta';
+import { IEncuestaContestada, IEncuestado, IPreguntaDinamica, IRespuesta, IRespuestaMultiple, IRespuestaSimple, IRespuestaTextoLibre } from '../domain/respuesta';
 import { MessageService } from '../services/message.service';
 import { IEncuesta } from '../domain/encuesta';
 
@@ -13,7 +13,9 @@ import { IEncuesta } from '../domain/encuesta';
   templateUrl: './dynamic-form.component.html',
   providers: [PreguntaControlService, ErrorStateMatcher]
 })
-export class DynamicFormComponent implements OnInit {
+
+
+export class DynamicFormComponent implements OnChanges {
 
   @Input() preguntas: IPregunta[] | null = [];
   @Input() encuesta!: IEncuesta | null;
@@ -53,23 +55,19 @@ export class DynamicFormComponent implements OnInit {
 
   }
 
-  // this.preguntas?.forEach(pregunta => {
-  //   this._fb.group({
-  //     RespuestaID: 0,
-  //     FechaHoraContestada: [new Date().toISOString],
-  //     Tipo: [pregunta.Tipo],
-  //     PreguntaID: [pregunta.PreguntaID],
-  //     TextoRespuesta: ['', Validators.required, this.noWhitespaceValidator]
-  //   });
-  // }),
 
-  ngOnInit() {
-    
-    
+
+  preguntasDinamicas: {} = {}
+
+  ngOnChanges() {
+
     this.form = this._fb.group({
       EncuestaID: [0],
-      
-      Respuestas: this.armarRespuestas(),
+
+      Respuestas: this._fb.array([
+        this._pcs.cargarPreguntas(this.preguntas as IPregunta[])
+      ]),
+
       Encuestado: this._fb.group({
         PersonaId: [0],
         Nombre: ['', Validators.pattern(".*\\S.*[a-zA-z0-9 ]")],
@@ -77,48 +75,77 @@ export class DynamicFormComponent implements OnInit {
         Celular: ['', Validators.pattern("^[0-9]{3,45}$")]
       })
     })
-    
+
+    // this.addRespuesta();
     console.log(this.form);
-    
+
   }
-  
-  armarRespuestas(): any {
-    // this.multiples = this.preguntas?.filter(p => p.Tipo == "OPCIONMULTIPLE");
-    const values = this.multiples.map(p => new FormControl(false));
-    console.log(values);
-    
-    
-    if (values) {
-      return this._fb.array(values, this.requiredMinCheckbox(1));
-    }
+
+
+
+
+
+
+
+
+  get Respuestas() {
+    // this.form.addControl('TextoRespuesta', this._fb.control(''))
+    return this.form.get('Respuestas') as FormArray;
   }
-  
+
+  addRespuesta() {
+    this.Respuestas.push(this._fb.control(''));
+  }
+
+  // armarRespuestas() {
+  //   // this.multiples = this.preguntas?.filter(p => p.Tipo == "OPCIONMULTIPLE");
+  //   // const arr = new FormArray([]);
+  //   this.preguntas?.forEach(p =>
+
+  //   // arr.push(this._fb.control({
+  //   //   RespuestaID: 0,
+  //   //   FechaHoraContestada: ''
+  //   // }))
+  //   {
+  //     console.log(p.TextoPregunta)
+
+  //     this.Respuestas.push(this._fb.control(p.TextoPregunta))
+  //   }
+  //   )
+  //   // const values = this.multiples.map(p => new FormControl(false));
+  //   // console.log(values);
+  //   // return arr;
+  //   // return this._fb.array(values, this.requiredMinCheckbox(1));
+
+  // }
+
+
   requiredMinCheckbox(min = 1) {
     const validator: ValidatorFn = (formArray: AbstractControl) => {
       if (formArray instanceof FormArray) {
         const totalSelected = formArray.controls
-        .map((control) => control.value)
-        .reduce((prev, next) => (next ? prev + next : prev), 0);
+          .map((control) => control.value)
+          .reduce((prev, next) => (next ? prev + next : prev), 0);
         return totalSelected >= min ? null : { required: true };
       }
-      
+
       throw new Error('formArray is not an instance of FormArray');
     };
-    
+
     return validator;
   }
-  
+
   public noWhitespaceValidator(control: FormControl) {
     const isWhitespace = (control.value || '').trim().length === 0;
     const isValid = !isWhitespace;
     return isValid ? null : { 'whitespace': true };
   }
-  
-  getMultiplesControls() {
-    return this.form.get('multiples') ? (<FormArray>this.form.get('multiples')).controls : null;
-  }
-  
-  
+
+  // getMultiplesControls() {
+  //   return this.form.get('multiples') ? (<FormArray>this.form.get('multiples')).controls : null;
+  // }
+
+
   // this.form = this._pcs.toFormGroup(this.encuestado, this.preguntas as IPregunta[]);
 
   // this.multiples = this._pcs.toFormGroupMultiples(this.preguntas as IPregunta[])
