@@ -4,7 +4,7 @@ import { IPregunta } from '../domain/pregunta';
 import { PreguntaControlService } from '../services/pregunta-control.service';
 import { RespuestaService } from '../services/respuesta.service';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { IEncuestaContestada, IEncuestado, IPreguntaDinamica, IRespuesta, IRespuestaMultiple, IRespuestaSimple, IRespuestaTextoLibre } from '../domain/respuesta';
+import { IEncuestaContestada, IEncuestado, IRespuesta, IRespuestaMultiple, IRespuestaSimple, IRespuestaTextoLibre } from '../domain/respuesta';
 import { MessageService } from '../services/message.service';
 import { IEncuesta } from '../domain/encuesta';
 
@@ -64,9 +64,9 @@ export class DynamicFormComponent implements OnChanges {
     this.form = this._fb.group({
       EncuestaID: [0],
 
-      Respuestas: this._fb.array([
-        this._pcs.cargarPreguntas(this.preguntas as IPregunta[])
-      ]),
+      Respuestas: this._fb.group({
+        OpcionesSeleccionadas: new FormArray([])
+      }),
 
       Encuestado: this._fb.group({
         PersonaId: [0],
