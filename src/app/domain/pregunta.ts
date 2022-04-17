@@ -13,4 +13,5 @@ export interface IPregunta {
 export interface IOpcion {
   OpcionID: number;
   OpcionTexto: string;
+  checked: boolean;
 }

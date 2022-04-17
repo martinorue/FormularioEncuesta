@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { IEncuestado } from '../domain/respuesta'
 import { IPregunta } from '../domain/pregunta';
 
 @Injectable()
-export class PreguntaControlService {
+export class ArmadoFormulario {
   fg!: FormGroup;
   multiples_fg!: FormGroup;
-  // encuestado_fg!: FormGroup;
 
-  constructor(  ) { }
+  constructor() { }
 
   toFormGroup(encuestado: IEncuestado, preguntas?: IPregunta[]) {
     const group: any = {};
-    const datos_encuestado: any = {};
     preguntas?.forEach(pregunta => {
       if (pregunta.Tipo == 'TEXTOLIBRE' || pregunta.Tipo == 'OPCIONSIMPLE') {
 
@@ -22,33 +20,16 @@ export class PreguntaControlService {
       }
       else if (pregunta.Tipo == 'OPCIONMULTIPLE') {
         group[pregunta.PreguntaID] = this.formArray(pregunta);
-        // multiples[pregunta.PreguntaID] = this.formArray(pregunta);
       }
     });
 
-    // datos_encuestado[encuestado?.Nombre!] = new FormControl('', [Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
-    // datos_encuestado[encuestado?.Correo!] = new FormControl('', [Validators.email]);
-    // datos_encuestado[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
+    group[encuestado?.Nombre!] = new FormControl('', [Validators.pattern(".*\\S.*[a-zA-z0-9 ]")]);
+    group[encuestado?.Correo!] = new FormControl('', [Validators.email]);
+    group[encuestado?.Celular!] = new FormControl('', [Validators.pattern("^[0-9]{3,45}$")]);
 
     this.fg = new FormGroup(group);
-    // this.encuestado_fg = new FormGroup(datos_encuestado);
-    // this.multiples_fg = new FormGroup(multiples);
-    console.log(group);
     
     return this.fg;
-  }
-
-  toFormGroupMultiples(preguntas?: IPregunta[]) {
-    const multiples: any = {};
-    preguntas?.forEach(pregunta => {
-      if (pregunta.Tipo == 'OPCIONMULTIPLE') {
-          multiples[pregunta.PreguntaID] = this.formArray(pregunta);
-          
-        
-      }
-    });
-    this.multiples_fg = new FormGroup(multiples);
-    return this.multiples_fg;
   }
 
   public noWhitespaceValidator(control: FormControl) {
@@ -60,10 +41,26 @@ export class PreguntaControlService {
   formArray(pregunta: IPregunta): FormArray {
     const arr = new FormArray([]);
     for (let opcion of pregunta.Opciones) {
-      arr.push(new FormControl(false));
+      arr.push(new FormControl([false, [this.requiredMinCheckbox]]));
     }
     return arr;
   }
+
+  requiredMinCheckbox(min = 1) {
+    const validator: ValidatorFn = (formArray: AbstractControl) => {
+      if (formArray instanceof FormArray) {
+        const totalSelected = formArray.controls
+          .map((control) => control.value)
+          .reduce((prev, next) => (next ? prev + next : prev), 0);
+        return totalSelected >= min ? null : { required: true };
+      }
+
+      throw new Error('formArray is not an instance of FormArray');
+    };
+
+    return validator;
+  }
+
 }
 
 

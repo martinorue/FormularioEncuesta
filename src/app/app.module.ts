@@ -4,10 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DynamicFormPreguntaComponent } from './dynamic-form-pregunta/dynamic-form-pregunta.component';
-import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
-import { PreguntaService } from './services/pregunta.service';
-import { PreguntaControlService } from './services/pregunta-control.service';
+import { DynamicFormPreguntaComponent } from './preguntas-dinamicas/preguntas-dinamicas.component';
+import { DynamicFormComponent } from './formulario/formulario.component';
+import { PreguntaService } from './services/encuesta.service';
+import { ArmadoFormulario } from './services/armado-formulario.service';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProcessHttpmsgService } from './services/process-httpmsg.service';
@@ -25,10 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 import { EncuestaComponent } from './encuesta/encuesta.component';
-import { GetEncuestaInterceptor } from './get-encuesta.interceptor';
+import { GetEncuestaInterceptor } from './interceptors/get-encuesta.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-
 
 @NgModule({
   declarations: [
@@ -58,7 +56,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   ],
   providers: [
     PreguntaService,
-    PreguntaControlService,
+    ArmadoFormulario,
     ProcessHttpmsgService,
     {
       provide: HTTP_INTERCEPTORS,

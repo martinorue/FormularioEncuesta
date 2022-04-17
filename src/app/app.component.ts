@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { PreguntaService } from './services/pregunta.service';
+import { Component } from '@angular/core';
+import { PreguntaService } from './services/encuesta.service';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,5 @@ import { PreguntaService } from './services/pregunta.service';
   providers: [PreguntaService]
 })
 export class AppComponent {
- 
+
 }

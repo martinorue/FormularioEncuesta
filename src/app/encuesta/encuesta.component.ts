@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PreguntaService } from '../services/pregunta.service';
+import { PreguntaService } from '../services/encuesta.service';
 import { IPregunta } from '../domain/pregunta';
 import { Observable } from 'rxjs';
 import { IEncuesta } from '../domain/encuesta';
@@ -27,7 +27,6 @@ export class EncuestaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     const routeParams = this._route.snapshot.paramMap;
     const encuestaIdFromRoute = Number(routeParams.get('id'));
     if (encuestaIdFromRoute > 0) {
