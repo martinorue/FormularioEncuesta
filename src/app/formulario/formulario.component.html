@@ -1,5 +1,3 @@
-
-
 <div *ngIf="preguntas && encuesta">
   <div *ngIf="encuesta.Estado == 'PUBLICADA'">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" #eform="ngForm">
@@ -9,7 +7,7 @@
       </mat-card>
       <div *ngFor="let pregunta of preguntas;" class="form-row">
         <mat-card class="mat-card">
-          <app-pregunta [pregunta]="pregunta" [form]="form"></app-pregunta>
+          <app-preguntas-dinamicas [pregunta]="pregunta" [form]="form"></app-preguntas-dinamicas>
         </mat-card>
       </div>
 
