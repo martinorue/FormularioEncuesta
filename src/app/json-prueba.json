@@ -1,22 +1,28 @@
 {
-    "EncuestaID": 0,
-    "Respuestas": [
-      {
-        "RespuestaID": 0,
-        "FechaHoraContestada": "2021-12-11T16:34:36.505Z",
-        "Tipo": "string",
-        "PreguntaID": 0,
-        "TextoRespuesta": "string",
-        "OpcionSeleccionada": {
+  "EncuestaID": 0,
+  "Respuestas": [
+    {
+      "RespuestaID": 0,
+      "FechaHoraContestada": "2022-04-03T12:33:40.800Z",
+      "Tipo": "string",
+      "PreguntaID": 0,
+      "TextoRespuesta": "string",
+      "OpcionSeleccionada": {
+        "OpcionID": 0,
+        "OpcionTexto": "string"
+      },
+      "OpcionesSeleccionadas": [
+        {
           "OpcionID": 0,
           "OpcionTexto": "string"
-        },
-        "OpcionesSeleccionadas": [
-          {
-            "OpcionID": 0,
-            "OpcionTexto": "string"
-          }
-        ]
-      }
-    ]
+        }
+      ]
+    }
+  ],
+  "Encuestado": {
+    "PersonaId": 0,
+    "Nombre": "string",
+    "Correo": "string",
+    "Celular": "string"
   }
+}
